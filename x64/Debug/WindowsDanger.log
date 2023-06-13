@@ -1,6 +1,6 @@
 ﻿  Building 'WindowsDanger' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\WindowsDanger.inf
-  Stamping [Version] section with DriverVer=06/13/2023,3.30.52.58
+  Stamping [Version] section with DriverVer=06/13/2023,5.56.16.692
   main.c
   WindowsDanger.vcxproj -> C:\Users\uefi\Documents\WindowsDanger\x64\Debug\WindowsDanger.sys
   Done Adding Additional Store

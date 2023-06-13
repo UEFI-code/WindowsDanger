@@ -74,14 +74,23 @@ NTSTATUS EnumerateThreadIds(VOID) {
         return status;  
     }  
   
-    PSYSTEM_PROCESS_INFORMATION current_process_info = process_info;  
+    PSYSTEM_PROCESS_INFORMATION current_process_info = process_info;
     while (TRUE) {
         DbgPrint("Process Name: %wZ\n", &current_process_info->ImageName);
-        PSYSTEM_THREAD_INFORMATION pThreadInfo = (PSYSTEM_THREAD_INFORMATION)(current_process_info + 1); 
+        PSYSTEM_THREAD_INFORMATION pThreadInfo = (PSYSTEM_THREAD_INFORMATION)(current_process_info + 1);
+        PKTRAP_FRAME current_trap_frame;
         for (ULONG i = 0; i < current_process_info->NumberOfThreads; i++) {  
-            //HANDLE thread_id = (HANDLE *)current_process_info->Reserved2
             HANDLE thread_id = pThreadInfo->ClientId.UniqueThread;
             DbgPrint("Thread ID: %d\n", thread_id);
+            status = GetThreadContext(thread_id, &current_trap_frame);
+            if (!NT_SUCCESS(status)) {  
+                KdPrint(("GetThreadContext failed with status 0x%X\n", status));  
+                //return status;
+                continue;
+            }
+            DbgPrint("Trap Frame: %p\n", current_trap_frame);
+            //Print RIP, CS
+            //DbgPrint("RIP: %p, CS: %p\n", current_trap_frame->Rip, current_trap_frame->SegCs);
             pThreadInfo++;
         }  
         if (current_process_info->NextEntryOffset == 0) {  

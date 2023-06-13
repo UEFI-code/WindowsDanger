@@ -8,7 +8,7 @@ Class=Sample ; TODO: edit Class
 ClassGuid={78A1C341-4539-11d3-B88D-00C04FAD5171} ; TODO: edit ClassGuid
 Provider=%ManufacturerName%
 CatalogFile=WindowsDanger.cat
-DriverVer = 06/13/2023,3.30.52.58
+DriverVer = 06/13/2023,5.56.16.692
 PnpLockDown=1
 
 [DestinationDirs]
