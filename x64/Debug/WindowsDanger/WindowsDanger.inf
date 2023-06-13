@@ -1,0 +1,90 @@
+;
+; WindowsDanger.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=Sample ; TODO: edit Class
+ClassGuid={78A1C341-4539-11d3-B88D-00C04FAD5171} ; TODO: edit ClassGuid
+Provider=%ManufacturerName%
+CatalogFile=WindowsDanger.cat
+DriverVer = 06/13/2023,3.30.52.58
+PnpLockDown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+WindowsDanger_Device_CoInstaller_CopyFiles = 11
+
+; ================= Class section =====================
+
+[ClassInstall32]
+Addreg=SampleClassReg
+
+[SampleClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+WindowsDanger.sys  = 1,,
+;
+
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64
+
+[Standard.NTamd64]
+%WindowsDanger.DeviceDesc%=WindowsDanger_Device, Root\WindowsDanger ; TODO: edit hw-id
+
+[WindowsDanger_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+WindowsDanger.sys
+
+;-------------- Service installation
+[WindowsDanger_Device.NT.Services]
+AddService = WindowsDanger,%SPSVCINST_ASSOCSERVICE%, WindowsDanger_Service_Inst
+
+; -------------- WindowsDanger driver install sections
+[WindowsDanger_Service_Inst]
+DisplayName    = %WindowsDanger.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\WindowsDanger.sys
+
+;
+;--- WindowsDanger_Device Coinstaller installation ------
+;
+
+[WindowsDanger_Device.NT.CoInstallers]
+AddReg=WindowsDanger_Device_CoInstaller_AddReg
+CopyFiles=WindowsDanger_Device_CoInstaller_CopyFiles
+
+[WindowsDanger_Device_CoInstaller_AddReg]
+;
+
+
+[WindowsDanger_Device_CoInstaller_CopyFiles]
+;
+
+
+[WindowsDanger_Device.NT.Wdf]
+KmdfService =  WindowsDanger, WindowsDanger_wdfsect
+[WindowsDanger_wdfsect]
+KmdfLibraryVersion = 1.15
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+ClassName="Samples" ; TODO: edit ClassName
+DiskName = "WindowsDanger Installation Disk"
+WindowsDanger.DeviceDesc = "WindowsDanger Device"
+WindowsDanger.SVCDESC = "WindowsDanger Service"
