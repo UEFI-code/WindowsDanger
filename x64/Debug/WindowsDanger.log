@@ -1,14 +1,14 @@
 ﻿  Building 'WindowsDanger' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\WindowsDanger.inf
-  Stamping [Version] section with DriverVer=06/15/2023,4.19.35.576
-  Assembling GDTTool.s...
+  Stamping [Version] section with DriverVer=06/15/2023,5.16.47.848
   main.c
+C:\Users\uefi\Documents\WindowsDanger\main.c(61,26): warning C4047: '==': 'HANDLE' differs in levels of indirection from 'int'
   WindowsDanger.vcxproj -> C:\Users\uefi\Documents\WindowsDanger\x64\Debug\WindowsDanger.sys
   Done Adding Additional Store
   Successfully signed: C:\Users\uefi\Documents\WindowsDanger\x64\Debug\WindowsDanger.sys
   
   Driver is 'Universal'.
-  ........................
+  .........................
   Signability test complete.
   
   Errors:

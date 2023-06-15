@@ -34,14 +34,14 @@ NTSTATUS GetThreadContext(HANDLE thread_id, PKTRAP_FRAME* trap_frame) {
     KdPrint(("User Stack Limit: %p\n", pStackLimit));
     SIZE_T StackSize = (SIZE_T)pStackBase - (SIZE_T)pStackLimit;
     KdPrint(("User Stack Size: %p\n", StackSize));
-    PVOID pKernelStack = ((PKTHREAD)ethread)->KernelStack;
+    UINT8 *pKernelStack = ((PKTHREAD)ethread)->KernelStack;
     KdPrint(("Kernel Stack: %p\n", pKernelStack));
-    //Allocate memory for kernel stack
-    PVOID pBuf = ExAllocatePoolWithTag(NonPagedPool, 2 * 1024, 'KSTK');
-    if (!pBuf) {
-        KdPrint(("ExAllocatePoolWithTag Failed: %x\n", status));
-        return status;
-    }
+    //Allocate memory buf for kernel stack
+    // PVOID pBuf = ExAllocatePoolWithTag(NonPagedPool, 2 * 1024, 'KSTK');
+    // if (!pBuf) {
+    //     KdPrint(("ExAllocatePoolWithTag Failed: %x\n", status));
+    //     return status;
+    // }
     // Raise IRQL to DISPATCH_LEVEL
     KIRQL oldIrql;
     KeRaiseIrql(DISPATCH_LEVEL, &oldIrql);
@@ -51,40 +51,49 @@ NTSTATUS GetThreadContext(HANDLE thread_id, PKTRAP_FRAME* trap_frame) {
         // Restore IRQL
         KeLowerIrql(oldIrql);
         // Free memory
-        ExFreePoolWithTag(pBuf, 'KSTK');
+        //ExFreePoolWithTag(pBuf, 'KSTK');
         return status;
     }
+
+    *trap_frame = (PKTRAP_FRAME)(pKernelStack + 384);
+    KdPrint(("RAX: %p, RBX: %p, RCX: %p, RDX: %p\n", (*trap_frame)->Rax, (*trap_frame)->Rbx, (*trap_frame)->Rcx, (*trap_frame)->Rdx));
+    
+    if (thread_id == 7656)
+    {
+        //Try to hack RdX to 0x6666666666666666
+        (*trap_frame)->Rdx = 0x6666666666666666;
+        KdPrint(("Try to hack RDX to %p\n", (*trap_frame)->Rdx));
+    }
     // Read kernel stack
-    RtlCopyMemory(pBuf, pKernelStack, 2 * 1024);
+    //RtlCopyMemory(pBuf, pKernelStack, 2 * 1024);
     // Restore IRQL
     KeLowerIrql(oldIrql);
     // Dump stack to C:\\Thread_%llu_KernelStack.bin
-    HANDLE hFile;
-    OBJECT_ATTRIBUTES objAttr;
-    IO_STATUS_BLOCK ioStatusBlock;
-    UNICODE_STRING uniName;
-    WCHAR wcName[512];
-    swprintf(wcName, L"\\DosDevices\\C:\\Thread_%llu_KernelStack.bin", (UINT64)thread_id);
-    RtlInitUnicodeString(&uniName, wcName);
-    InitializeObjectAttributes(&objAttr, &uniName, OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE, NULL, NULL);
-    status = ZwCreateFile(&hFile, GENERIC_WRITE, &objAttr, &ioStatusBlock, NULL, FILE_ATTRIBUTE_NORMAL, 0, FILE_OVERWRITE_IF, FILE_SYNCHRONOUS_IO_NONALERT, NULL, 0);
-    if (!NT_SUCCESS(status)) {
-        KdPrint(("ZwCreateFile Failed: %x\n", status));
-        return status;
-    }
-    status = ZwWriteFile(hFile, NULL, NULL, NULL, &ioStatusBlock, pBuf, 2 * 1024, NULL, NULL);
-    if (!NT_SUCCESS(status)) {
-        KdPrint(("ZwWriteFile Failed: %x\n", status));
-        return status;
-    }
-    ZwClose(hFile);
+    // HANDLE hFile;
+    // OBJECT_ATTRIBUTES objAttr;
+    // IO_STATUS_BLOCK ioStatusBlock;
+    // UNICODE_STRING uniName;
+    // WCHAR wcName[512];
+    // swprintf(wcName, L"\\DosDevices\\C:\\Thread_%llu_KernelStack.bin", (UINT64)thread_id);
+    // RtlInitUnicodeString(&uniName, wcName);
+    // InitializeObjectAttributes(&objAttr, &uniName, OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE, NULL, NULL);
+    // status = ZwCreateFile(&hFile, GENERIC_WRITE, &objAttr, &ioStatusBlock, NULL, FILE_ATTRIBUTE_NORMAL, 0, FILE_OVERWRITE_IF, FILE_SYNCHRONOUS_IO_NONALERT, NULL, 0);
+    // if (!NT_SUCCESS(status)) {
+    //     KdPrint(("ZwCreateFile Failed: %x\n", status));
+    //     return status;
+    // }
+    // status = ZwWriteFile(hFile, NULL, NULL, NULL, &ioStatusBlock, pBuf, 2 * 1024, NULL, NULL);
+    // if (!NT_SUCCESS(status)) {
+    //     KdPrint(("ZwWriteFile Failed: %x\n", status));
+    //     return status;
+    // }
+    // ZwClose(hFile);
     // Free memory
-    ExFreePoolWithTag(pBuf, 'KSTK');
-
-    *trap_frame = (PKTRAP_FRAME)(pKernelStack);
+    //ExFreePoolWithTag(pBuf, 'KSTK');
    
-    ObDereferenceObject(ethread);  
-  
+    ObDereferenceObject(ethread);
+
+
     return STATUS_SUCCESS;  
 }  
 
