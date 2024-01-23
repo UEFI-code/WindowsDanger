@@ -19,7 +19,7 @@ GetGDT PROC
 GetGDT ENDP
 
 SetGDT PROC  
-    lgdt fword ptr [rax]
+    sgdt fword ptr [rax]
     ret
 SetGDT ENDP
 
