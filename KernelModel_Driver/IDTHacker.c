@@ -12,6 +12,9 @@ void myINTHandler()
 
 void RegisterMyINTHandler()
 {
-    HackIDT_FireAndForget(0x80, myINTHandler);
+    // trigger breakpoint
+    //DbgBreakPoint();
+    //UINT8 *showMem = ExAllocatePool2(POOL_FLAG_NON_PAGED, 0x1000, '2333');
+    HackIDT_FireAndForget(0x0, myINTHandler);
 }
 

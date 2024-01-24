@@ -1,5 +1,5 @@
 ; how to declare function of the ExAllocatePool function? 
-extern ExAllocatePool: proc
+extern ExAllocatePool2: proc
 
 .code
 
@@ -14,26 +14,28 @@ SetIDT PROC
 SetIDT ENDP
 
 HackIDT_FireAndForget PROC
+    int 03h ; Debug Break
     ; incoming parameters: INT number, pointer to the function
     push rcx ; Backup INT number
     push rdx ; Backup pointer to the function
     ; We need allocate memory size of 0x1000 bytes
     ; We need to allocate memory in non-paged pool
-    mov rcx, 0
-    mov rdx, 256 * 16 + 8 ; Another 8 bytes for LIDT
-    call ExAllocatePool
+    mov rcx, 040h ; POOL_FLAG_NON_PAGED_EXECUTE
+    mov rdx, 256 * 16 + 10 ; Another 8 bytes for LIDT
+    mov r8, 0233h ; Tag is 233
+    call ExAllocatePool2
     ; Now rax is pointer to allocated memory.
     sidt fword ptr [rax] ; Now the IDT memory pointer stored in rax pointed memory. Get that pointer to rbx!
     push rbx ; Backup rbx
-    mov rbx, [rax] ; Get IDT pointer
+    mov rbx, [rax + 2] ; Get IDT pointer, first 2 bytes is limit, next 8 bytes is base
     ; Then we copy the IDT to our allocated memory
-    mov rcx, 0
-    cpy_process:
+    mov rcx, 0 ; let rcx as counter
+    copy_process:
         mov rdx, [rbx + rcx * 8]
         mov [rax + rcx * 8], rdx
         inc rcx
         cmp rcx, 512 ; here the rdx ready 8 bytes one time, but an IDT entry is 16 bytes. So we need to copy 512 times
-        jne cpy_process
+        jne copy_process
     ; Now we have a copy of the IDT in our allocated memory
     pop rbx ; Restore rbx, and rbx useless now
     ; Start Hack Now!
@@ -51,7 +53,8 @@ HackIDT_FireAndForget PROC
     mov [rcx + 10], dx ; Store higher 16 bits of the pointer to the function
     ; OK, we finished the hack!
     ; Now Load the New IDT
-    mov [rax + 4096], rax ; Store the IDT Pointer
+    mov word ptr [rax + 4096], 0FFFh ; Set the limit to 0x0FFF
+    mov [rax + 4098], rax ; Store the IDT Pointer
     add rax, 4096
     lidt fword ptr [rax]
     ; Now we finished the hack! Windup to return

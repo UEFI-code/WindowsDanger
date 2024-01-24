@@ -1,7 +1,8 @@
 ﻿  Building 'WindowsDanger' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\WindowsDanger.inf
-  Stamping [Version] section with DriverVer=01/24/2024,16.33.31.500
-  Assembling IDTTool.s...
+  Stamping [Version] section with DriverVer=01/24/2024,17.54.1.716
+  IDTHacker.c
+C:\Users\Administrator\WindowsDanger\KernelModel_Driver\IDTHacker.c(18,44): warning C4152: 関数へのポインターがデータへのポインターに変換されました。
   WindowsDanger.vcxproj -> C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
   Done Adding Additional Store
   Successfully signed: C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
