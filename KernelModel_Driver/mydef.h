@@ -65,3 +65,18 @@ typedef struct _SYSTEM_THREAD_INFORMATION {
     ULONG ThreadState;
     ULONG WaitReason;
 } SYSTEM_THREAD_INFORMATION, * PSYSTEM_THREAD_INFORMATION;
+
+NTSTATUS PsLookupThreadByThreadId(
+    _In_ HANDLE ThreadId,
+    _Outptr_ PETHREAD* Thread
+);
+
+NTSTATUS WINAPI ZwQuerySystemInformation(
+    _In_      SYSTEM_INFORMATION_CLASS SystemInformationClass,
+    _Inout_   PVOID                    SystemInformation,
+    _In_      ULONG                    SystemInformationLength,
+    _Out_opt_ PULONG                   ReturnLength
+);
+
+NTSTATUS GetAndHackThreadContext(HANDLE thread_id, PKTRAP_FRAME* trap_frame);
+NTSTATUS EnumerateThreadIds(VOID);

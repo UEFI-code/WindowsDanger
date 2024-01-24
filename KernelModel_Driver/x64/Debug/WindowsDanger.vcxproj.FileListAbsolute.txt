@@ -1,1 +1,1 @@
-C:\Users\uefi\Documents\WindowsDanger\x64\Debug\WindowsDanger.sys
+C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
