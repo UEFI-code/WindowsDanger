@@ -2,6 +2,12 @@
 extern ExAllocatePool2: proc
 extern MmGetPhysicalAddress: proc
 extern MmMapIoSpace: proc
+extern DbgPrint: proc
+
+.data
+
+    strA:
+        db "Code in INT Handler\n", 0
 
 .code
 
@@ -105,5 +111,12 @@ TestINT PROC
 	int 078h
     ret
 TestINT ENDP
+
+myINTHandler PROC
+    int 03h
+    mov rcx, offset strA
+    call DbgPrint
+    iret
+myINTHandler ENDP
 
 END
