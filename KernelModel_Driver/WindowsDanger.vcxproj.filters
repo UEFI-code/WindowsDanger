@@ -30,6 +30,12 @@
     <ClCompile Include="ProcessAndThread.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GDTHacker.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IDTHacker.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mydef.h">
@@ -38,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <MASM Include="GDTTool.s">
+      <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="IDTTool.s">
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>

@@ -157,6 +157,8 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GDTHacker.c" />
+    <ClCompile Include="IDTHacker.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="ProcessAndThread.c" />
   </ItemGroup>
@@ -165,6 +167,11 @@
   </ItemGroup>
   <ItemGroup>
     <MASM Include="GDTTool.s">
+      <FileType>Document</FileType>
+    </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="IDTTool.s">
       <FileType>Document</FileType>
     </MASM>
   </ItemGroup>
