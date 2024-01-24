@@ -61,4 +61,35 @@ HackIDT_FireAndForget PROC
     ret
 HackIDT_FireAndForget ENDP
 
+HackIDT_FireAndForget2 PROC
+    int 03h ; Debug Break
+    ; incoming parameters: INT number, pointer to the function
+    push rcx ; Backup INT number
+    push rdx ; Backup pointer to the function
+    ; We need allocate memory size of 10 bytes
+    ; We need to allocate memory in non-paged pool
+    mov rcx, 040h ; 
+    mov rdx, 10 ; Another 8 bytes for LIDT
+    mov r8, 0233h ; Tag is 233
+    call ExAllocatePool2
+    ; Now rax is pointer to allocated memory.
+    sidt fword ptr [rax] ; Now the IDT memory pointer stored in rax pointed memory. Get that pointer to rax!
+    mov rax, [rax + 2] ; Get IDT pointer, first 2 bytes is limit, next 8 bytes is base
+    ; Start Hack Now!
+    pop rdx
+    pop rcx
+    lea rcx, [rcx * 4]
+    lea rcx, [rcx * 4] ; Here multiple 16 is not allowed by x64.
+    lea rcx, [rax + rcx] ; Get the INT indexed pointer. The rcx is useless now.
+    mov [rcx], dx ; Store lower 16 bits of the pointer to the function
+    ; now shift rax to right 16 bits
+    shr rdx, 16
+    mov byte ptr [rcx + 5], 0EEh ; Allow user mode access
+    mov [rcx + 6], edx ; Store higher 32 bits of the pointer to the function
+    shr rdx, 32
+    mov [rcx + 10], dx ; Store higher 16 bits of the pointer to the function
+    ; OK, we finished the hack!
+    ret
+HackIDT_FireAndForget2 ENDP
+
 END
