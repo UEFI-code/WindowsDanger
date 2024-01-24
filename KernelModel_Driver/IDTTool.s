@@ -1,5 +1,7 @@
 ; how to declare function of the ExAllocatePool function? 
 extern ExAllocatePool2: proc
+extern MmGetPhysicalAddress: proc
+extern MmMapIoSpace: proc
 
 .code
 
@@ -75,7 +77,14 @@ HackIDT_FireAndForget2 PROC
     ; Now rax is pointer to allocated memory.
     sidt fword ptr [rax] ; Now the IDT memory pointer stored in rax pointed memory. Get that pointer to rax!
     mov rax, [rax + 2] ; Get IDT pointer, first 2 bytes is limit, next 8 bytes is base
-    ; Start Hack Now!
+    ; before we start, we need to bypass the memory protection
+    mov rcx, rax
+    call MmGetPhysicalAddress
+    mov rcx, rax
+    mov rdx, 256 * 16
+    mov r8, 0
+    call MmMapIoSpace
+    ; Now we may bypass the memory protection
     pop rdx
     pop rcx
     lea rcx, [rcx * 4]
@@ -91,5 +100,10 @@ HackIDT_FireAndForget2 PROC
     ; OK, we finished the hack!
     ret
 HackIDT_FireAndForget2 ENDP
+
+TestINT PROC
+	int 078h
+    ret
+TestINT ENDP
 
 END

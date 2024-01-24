@@ -26,6 +26,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT driver_object, PUNICODE_STRING registry_path
 
     RegisterMyINTHandler();
 
+
     return STATUS_SUCCESS;  
 }
 
