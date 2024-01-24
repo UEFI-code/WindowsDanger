@@ -1,8 +1,7 @@
 ﻿  Building 'WindowsDanger' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\WindowsDanger.inf
-  Stamping [Version] section with DriverVer=01/24/2024,15.54.7.403
-  main.c
-C:\Users\Administrator\WindowsDanger\KernelModel_Driver\main.c(17,14): warning C4101: 'status': ローカル変数は 1 度も使われていません。
+  Stamping [Version] section with DriverVer=01/24/2024,16.33.31.500
+  Assembling IDTTool.s...
   WindowsDanger.vcxproj -> C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
   Done Adding Additional Store
   Successfully signed: C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
