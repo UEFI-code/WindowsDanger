@@ -1,15 +1,7 @@
 ﻿  Building 'WindowsDanger' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\WindowsDanger.inf
-  Stamping [Version] section with DriverVer=01/24/2024,14.21.57.271
-  main.c
-  ProcessAndThread.c
-C:\Users\Administrator\WindowsDanger\KernelModel_Driver\ProcessAndThread.c(44,19): warning C4047: '==': 間接参照のレベルが 'HANDLE' と 'int' で異なっています。
-C:\Users\Administrator\WindowsDanger\KernelModel_Driver\ProcessAndThread.c(93,14): warning C4996: 'ExAllocatePoolWithTag': ExAllocatePoolWithTag is deprecated, use ExAllocatePool2.
-  コードを生成中...
+  Stamping [Version] section with DriverVer=01/24/2024,14.25.28.971
   WindowsDanger.vcxproj -> C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
-  Done Adding Additional Store
-  Successfully signed: C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
-  
   Driver is 'Universal'.
   .........................
   Signability test complete.
