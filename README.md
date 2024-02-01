@@ -2,7 +2,9 @@
   
 WindowsDanger is an open-source driver designed to assist developers, hardware debuggers, and reverse engineers in accessing and manipulating system resources more conveniently. By installing and launching this driver, you can elevate all threads to Ring0, allowing for full control over low-level hardware and system resources.  
   
-⚠️ **Warning**: Please be aware that using WindowsDanger may result in system instability, data loss, or other unintended consequences. Use with caution and perform testing in a safe environment.  
+⚠️ **Warning**: Please be aware that using WindowsDanger may result in system instability, data loss, or other unintended consequences. Use with caution and perform testing in a safe environment. 
+
+This project is still under development. For quick access, please use the [QEMU_Danger](https://github.com/UEFI-code/QEMU_Danger) project.
 
 ## Learning Resources
 
