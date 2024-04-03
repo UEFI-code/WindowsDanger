@@ -149,6 +149,9 @@
     <DriverSign>
       <FileDigestAlgorithm>SHA256</FileDigestAlgorithm>
     </DriverSign>
+    <Link>
+      <AdditionalDependencies>Wdmsec.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Inf Include="WindowsDanger.inf" />
@@ -161,6 +164,7 @@
     <ClCompile Include="IDTHacker.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="ProcessAndThread.c" />
+    <ClCompile Include="sysenter_func.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mydef.h" />

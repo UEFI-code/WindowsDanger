@@ -1,4 +1,5 @@
 #include <minwindef.h>
+#include <wdmsec.h>
 typedef struct _KTHREAD
 {
     DISPATCHER_HEADER Header;
@@ -80,3 +81,11 @@ NTSTATUS WINAPI ZwQuerySystemInformation(
 
 NTSTATUS GetAndHackThreadContext(HANDLE thread_id, PKTRAP_FRAME* trap_frame);
 NTSTATUS EnumerateThreadIds(VOID);
+void RegisterMyINTHandler();
+NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP);
+
+extern UNICODE_STRING DeviceName;
+extern UNICODE_STRING sddl;
+extern UNICODE_STRING DeviceGUID;
+extern PDEVICE_OBJECT g_DeviceObj;
+extern UNICODE_STRING DeviceSymbolicLinkName;

@@ -36,6 +36,9 @@
     <ClCompile Include="IDTHacker.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sysenter_func.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mydef.h">
