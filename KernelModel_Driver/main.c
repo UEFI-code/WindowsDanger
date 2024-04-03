@@ -8,6 +8,8 @@
 VOID DriverUnload(PDRIVER_OBJECT pDriverObject)
 {
     DbgPrint("Driver Unload Called\n");
+    IoDeleteSymbolicLink(&DeviceSymbolicLinkName);
+    IoDeleteDevice(g_DeviceObj);
     pDriverObject->DriverUnload = NULL;
 }
 

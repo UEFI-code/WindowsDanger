@@ -11,10 +11,13 @@ int main()
 	HANDLE device = CreateFileA("\\\\.\\WinDangerLink", GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM, 0);
 	if (device == INVALID_HANDLE_VALUE) {
 		std::cout << "CreateFile failed" << std::endl;
-		return 1;
+		goto end;
 	}
 	DeviceIoControl(device, 0, NULL, 0, NULL, 0, &ret_code, 0);
 	CloseHandle(device);
+	std::cout << "ret_code: " << ret_code << std::endl;
+end:
+	system("pause");
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
