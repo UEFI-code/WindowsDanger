@@ -83,6 +83,7 @@ NTSTATUS GetAndHackThreadContext(HANDLE thread_id, PKTRAP_FRAME* trap_frame);
 NTSTATUS EnumerateThreadIds(VOID);
 void RegisterMyINTHandler();
 NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP);
+void MuShi();
 
 extern UNICODE_STRING DeviceName;
 extern UNICODE_STRING sddl;

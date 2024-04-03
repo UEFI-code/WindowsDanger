@@ -11,21 +11,21 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 {
 	if (DeviceObj != 0 && myIRP != 0)
 	{
-		DbgPrint("On DeviceCTL DeviceObj and myIRP Valid 233!");
+		DbgPrint("On DeviceCTL DeviceObj and myIRP Valid 233!\n");
 		if (DeviceObj != g_DeviceObj)
 		{
-			DbgPrint("Go wrong dispatch place!");
+			DbgPrint("Go wrong dispatch place!\n");
 			return STATUS_BAD_DEVICE_TYPE;
 		}
 		PIO_STACK_LOCATION myIRPsp = IoGetCurrentIrpStackLocation(myIRP);
-		DbgPrint("IOCTL code is 0x%X", myIRPsp->Parameters.DeviceIoControl.IoControlCode);
+		DbgPrint("IOCTL code is 0x%X\n", myIRPsp->Parameters.DeviceIoControl.IoControlCode);
 		switch (myIRPsp->Parameters.DeviceIoControl.IoControlCode)
 		{
 		    case 0:
-                DbgPrint("Here is 0!");
+                DbgPrint("Here is 0!\n");
                 break;
             case 1:
-                DbgPrint("Here is 1!");
+                DbgPrint("Here is 1!\n");
                 break;
 		}
 		myIRP->IoStatus.Status = STATUS_SUCCESS;
@@ -34,4 +34,9 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 	}
 
 	return STATUS_ILLEGAL_INSTRUCTION;
+}
+
+void MuShi()
+{
+    DbgPrint("MuShi Called!");
 }
