@@ -84,6 +84,8 @@ NTSTATUS EnumerateThreadIds(VOID);
 void RegisterMyINTHandler();
 NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP);
 void MuShi();
+void NOP_Toy();
+void Disable_WriteProtect();
 
 extern UNICODE_STRING DeviceName;
 extern UNICODE_STRING sddl;

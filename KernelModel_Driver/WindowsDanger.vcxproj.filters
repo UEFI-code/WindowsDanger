@@ -52,5 +52,8 @@
     <MASM Include="IDTTool.s">
       <Filter>Source Files</Filter>
     </MASM>
+    <MASM Include="sysenter_tool.s">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

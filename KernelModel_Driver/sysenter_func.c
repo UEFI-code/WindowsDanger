@@ -23,9 +23,14 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 		{
 		    case 0:
                 DbgPrint("Here is 0!\n");
+                DbgBreakPoint();
+                Disable_WriteProtect();
+				DbgPrint("We hacked to Disable Write-Protection!\n");
                 break;
             case 1:
                 DbgPrint("Here is 1!\n");
+                DbgBreakPoint();
+                NOP_Toy();
                 break;
 		}
 		myIRP->IoStatus.Status = STATUS_SUCCESS;
