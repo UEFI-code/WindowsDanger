@@ -7,7 +7,7 @@ WindowsDanger is an open-source driver designed to assist developers, hardware d
 This project is still under development. For quick access, please use the [QEMU_Danger](https://github.com/UEFI-code/QEMU_Danger) project.
 
 Currently achieved:
-    - Disable Write-Protection by modifiy CR0
+- Disable Write-Protection by modifiy CR0
 
 ## Learning Resources
 
