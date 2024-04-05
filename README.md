@@ -6,6 +6,9 @@ WindowsDanger is an open-source driver designed to assist developers, hardware d
 
 This project is still under development. For quick access, please use the [QEMU_Danger](https://github.com/UEFI-code/QEMU_Danger) project.
 
+```Ke386SetIoAccessMap``` and ```Ke386IoSetAccessProcess``` is NOT available in Win10/Server 2019 and above. It's better to learn how the x86 CPU work within TSS and IOPM.
+
+
 Currently achieved:
 - Disable Write-Protection by modifiy CR0
 
