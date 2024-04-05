@@ -6,6 +6,10 @@ UNICODE_STRING sddl = RTL_CONSTANT_STRING(L"D:P(A;;GA;;;WD)");
 UNICODE_STRING DeviceGUID = RTL_CONSTANT_STRING(L"23333333-2333-2333-2333-233333333333");
 PDEVICE_OBJECT g_DeviceObj = 0;
 UNICODE_STRING DeviceSymbolicLinkName = RTL_CONSTANT_STRING(L"\\??\\WinDangerLink");
+UINT8 *pIOPM = NULL;
+
+//void Ke386SetIoAccessMap();
+//void Ke386IoSetAccessProcess();
 
 NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 {
@@ -28,10 +32,23 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 				DbgPrint("We hacked to Disable Write-Protection!\n");
                 break;
             case 1:
-                DbgPrint("Here is 1!\n");
+				DbgPrint("Here is 1!\n");
                 DbgBreakPoint();
-                NOP_Toy();
+				if (pIOPM == NULL)
+				{
+					pIOPM = MmAllocateNonCachedMemory(65536 / 8);
+					RtlZeroMemory(pIOPM, 65536 / 8);
+				}
+				// Ke386SetIoAccessMap(1, pIOPM); // Copy IOPM to TSS
+				// Ke386IoSetAccessProcess(IoGetCurrentProcess(), 1);
+				// IOPL setting func not work on Win10/Server2019, should manully do it.
+				
                 break;
+			default:
+				DbgPrint("Here is default!\n");
+                DbgBreakPoint();
+				NOP_Toy();
+				break;
 		}
 		myIRP->IoStatus.Status = STATUS_SUCCESS;
 		IoCompleteRequest(myIRP, IO_NO_INCREMENT); //No this will cause bug in usermode!
