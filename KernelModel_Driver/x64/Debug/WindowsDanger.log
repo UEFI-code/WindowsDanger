@@ -1,7 +1,9 @@
 ﻿  Building 'WindowsDanger' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\WindowsDanger.inf
-  Stamping [Version] section with DriverVer=04/04/2024,21.44.47.366
-  sysenter_func.c
+  Stamping [Version] section with DriverVer=04/06/2024,13.56.51.911
+  GDTHacker.c
+C:\Users\Administrator\WindowsDanger\KernelModel_Driver\GDTHacker.c(32,50): warning C4554: '&': 演算子の優先順位に問題があります。かっこを使用して優先順位を明確にしてください
+C:\Users\Administrator\WindowsDanger\KernelModel_Driver\GDTHacker.c(59,34): warning C4554: '&': 演算子の優先順位に問題があります。かっこを使用して優先順位を明確にしてください
   WindowsDanger.vcxproj -> C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
   Done Adding Additional Store
   Successfully signed: C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys

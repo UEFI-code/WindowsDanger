@@ -34,11 +34,13 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
             case 1:
 				DbgPrint("Here is 1!\n");
                 DbgBreakPoint();
-				if (pIOPM == NULL)
-				{
-					pIOPM = MmAllocateNonCachedMemory(65536 / 8);
-					RtlZeroMemory(pIOPM, 65536 / 8);
-				}
+				HackGDT();
+
+				// if (pIOPM == NULL)
+				// {
+				// 	pIOPM = MmAllocateNonCachedMemory(65536 / 8);
+				// 	RtlZeroMemory(pIOPM, 65536 / 8);
+				// }
 				// Ke386SetIoAccessMap(1, pIOPM); // Copy IOPM to TSS
 				// Ke386IoSetAccessProcess(IoGetCurrentProcess(), 1);
 				// IOPL setting func not work on Win10/Server2019, should manully do it.
