@@ -14,12 +14,12 @@ EnableInterrupts PROC
 EnableInterrupts ENDP
 
 GetGDT PROC  
-    sgdt fword ptr [rax]
+    sgdt fword ptr [rcx]
     ret
 GetGDT ENDP
 
 SetGDT PROC  
-    lgdt fword ptr [rax]
+    lgdt fword ptr [rcx]
     ret
 SetGDT ENDP
 

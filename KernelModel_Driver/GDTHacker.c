@@ -29,7 +29,7 @@ VOID HackGDT()
                 if (Now_GDT[5] & 0x8)
                 {
                     DbgPrint("This Segment is Code!\n");
-                    if (Now_GDT[5] & 0x60 == 0x60)
+                    if ((Now_GDT[5] & 0x60) == 0x60)
                     {
                         DbgPrint("This Code Segment is For Ring3, Start Patching!!!\n");
                         Now_GDT[5] &= 0x9F;
@@ -56,7 +56,7 @@ VOID HackGDT()
         }
         
         // Now chk for offset.
-        if(Now_GDT[5] & 0x10 == 0)
+        if((Now_GDT[5] & 0x10) == 0)
         {
             // If CPU run in x64 and the segment is system, no matter 6th bytes...
             Now_GDT += 16;
