@@ -23,9 +23,8 @@ VOID HackGDT()
         if(Now_GDT[5] & 0x80)
         {
             DbgPrint("This Segment %d is Enabled!\n", i);
-            if (Now_GDT[5] & 0x10)
+            if (Now_GDT[5] & 0x10) // Code or Data Segment
             {
-                // Code or Data Segment
                 if (Now_GDT[5] & 0x08)
                 {
                     DbgPrint("This Segment is Code!\n");
