@@ -7,13 +7,19 @@
 int main()
 {
     std::cout << "Hello World!\n";
+	int ctl_code = 0;
 	DWORD ret_code;
 	HANDLE device = CreateFileA("\\\\.\\WinDangerLink", GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM, 0);
 	if (device == INVALID_HANDLE_VALUE) {
 		std::cout << "CreateFile failed" << std::endl;
 		goto end;
 	}
-	DeviceIoControl(device, 0, NULL, 0, NULL, 0, &ret_code, 0);
+	while (1)
+	{
+		printf("Type CTL code: ");
+		scanf_s("%d", &ctl_code);
+		DeviceIoControl(device, 0, NULL, 0, NULL, 0, &ret_code, 0);
+	}
 	CloseHandle(device);
 	std::cout << "ret_code: " << ret_code << std::endl;
 end:
