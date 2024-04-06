@@ -15,7 +15,7 @@ VOID HackGDT()
     GetGDT(GDTDescriptorTable);
     UINT16 GDT_Len = *(UINT16 *)(GDTDescriptorTable + 0);
     UINT8 *GDT_Base = (UINT8 *)(*(UINT64 *)(GDTDescriptorTable + 2));
-    DbgPrint("GDT Length: %x\n", GDT_Len);
+    DbgPrint("GDT Length: %d\n", GDT_Len);
     DbgPrint("GDT Base: %p\n", GDT_Base);
     UINT8 *Now_GDT = GDT_Base;
     for(UINT16 i = 0; i < GDT_Len; i += 1)
