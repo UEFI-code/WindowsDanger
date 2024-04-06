@@ -15,8 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UserMode_Caller.cpp">
+    <ClCompile Include="UserMode_Caller.c">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="ReadRegister.s">
+      <Filter>ソース ファイル</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

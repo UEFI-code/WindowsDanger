@@ -1,27 +1,36 @@
 ﻿// UserMode_Caller.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
 //
-
-#include <iostream>
+#include<stdio.h>
+#include<stdint.h>
 #include <Windows.h>
+
+
+uint64_t GetRSI();
+uint64_t GetRDI();
+uint64_t GetCS();
+uint64_t GetDS();
+uint64_t GetCR0();
+uint64_t GetCR3();
+void InitRSIRDI();
 
 int main()
 {
-    std::cout << "Hello World!\n";
 	int ctl_code = 0;
 	DWORD ret_code;
 	HANDLE device = CreateFileA("\\\\.\\WinDangerLink", GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM, 0);
 	if (device == INVALID_HANDLE_VALUE) {
-		std::cout << "CreateFile failed" << std::endl;
+		printf("CreateFile failed!\n");
 		goto end;
 	}
+	InitRSIRDI();
 	while (1)
 	{
 		printf("Type CTL code: ");
 		scanf_s("%d", &ctl_code);
 		DeviceIoControl(device, ctl_code, NULL, 0, NULL, 0, &ret_code, 0);
+		printf_s("RSI = %016llx, RDI = %016llx, CS = %016llx, DS = %016llx\n", GetRSI(), GetRDI(), GetCS(), GetDS());
 	}
 	CloseHandle(device);
-	std::cout << "ret_code: " << ret_code << std::endl;
 end:
 	system("pause");
 }
