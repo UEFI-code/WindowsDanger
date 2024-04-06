@@ -11,6 +11,7 @@ This project is still under development. For quick access, please use the [QEMU_
 
 Currently achieved:
 - Disable Write-Protection by modifiy CR0
+- Hack Ring3 Segment in GDT to Ring0
 
 ## Learning Resources
 
