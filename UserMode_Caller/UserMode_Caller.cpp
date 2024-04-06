@@ -18,7 +18,7 @@ int main()
 	{
 		printf("Type CTL code: ");
 		scanf_s("%d", &ctl_code);
-		DeviceIoControl(device, 0, NULL, 0, NULL, 0, &ret_code, 0);
+		DeviceIoControl(device, ctl_code, NULL, 0, NULL, 0, &ret_code, 0);
 	}
 	CloseHandle(device);
 	std::cout << "ret_code: " << ret_code << std::endl;
