@@ -49,6 +49,9 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 			default:
 				DbgPrint("Here is default!\n");
                 DbgBreakPoint();
+				PKTHREAD pCurrentThread = KeGetCurrentThread();
+				//PKTRAP_FRAME pTrap_frame = (PKTRAP_FRAME)((UINT8 *)pCurrentThread->KernelStack + 384);
+				//DbgPrint("RSI=%llX, RDI = %llX, CS = %x\n", pTrap_frame->Rsi, pTrap_frame->Rdi, pTrap_frame->SegCs);
 				NOP_Toy();
 				break;
 		}

@@ -59,6 +59,7 @@ VOID HackGDT()
         {
             // If CPU run in x64 and the segment is system, no matter 6th bytes...
             Now_GDT += 16;
+            i++; // Count this type of GDT item as 2 items
         }
         else
         {
