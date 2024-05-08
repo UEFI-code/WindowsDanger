@@ -10,7 +10,7 @@ You know, Azure's Virtual Network has ***shipped with DHCP and NAT support***. T
 
 ### Go
 
-0. Create 2 ***Windows Server 2022 with Desktop Experience*** VMs. name it as ***Host*** and ***Target***. ***Host*** is suggest as minimal 2 Cores with 8GB RAM. ***Target*** is 2 Cores 4GB RAM. You can use ***Azure Spot*** if you are running on ***Pay-As-You-Go*** Subscription which can be more cheap. Same Login token on two VM is suggested for SMB easy use.
+0. Create two ***Windows Server 2022 with Desktop Experience*** VMs. name it as ***Host*** and ***Target***. ***Host*** is suggest as minimal 2 Cores with 8GB RAM. ***Target*** is 2 Cores 4GB RAM. You can use ***Azure Spot*** if you are running on ***Pay-As-You-Go*** Subscription which can be more cheap. Same Login token on two VM is suggested for SMB easy use.
 
 1. Configure the ***Target*** VM to Disable TPM, Secure Boot, and Enable Boot Diag (To see the Virtual Screen and Access Serial Port). Configure the ***Target*** VM's Firewall to Allow ***TCP 445, 135 ports*** inbound trafic to Enable SMB access
 
