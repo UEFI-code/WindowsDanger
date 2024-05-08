@@ -1,13 +1,14 @@
 # WindowsDanger  
   
-WindowsDanger is an open-source driver designed to assist developers, hardware debuggers, and reverse engineers in accessing and manipulating system resources more conveniently. By installing and launching this driver, you can elevate all threads to Ring0, allowing for full control over low-level hardware and system resources.  
+WindowsDanger is an open-source project that help developers to Learn & Hack Windows Kernel.
+
+This driver **Dreamed** to assist developers, hardware debuggers, and reverse engineers in accessing and manipulating system resources more conveniently. By installing and launching this driver, you can elevate all threads to Ring0, allowing for full control over low-level hardware and system resources.  
   
 ⚠️ **Warning**: Please be aware that using WindowsDanger may result in system instability, data loss, or other unintended consequences. Use with caution and perform testing in a safe environment. 
 
-This project is still under development. For quick access, please use the [QEMU_Danger](https://github.com/UEFI-code/QEMU_Danger) project.
+This project is still under development. For more quick access, please use the [QEMU_Danger](https://github.com/UEFI-code/QEMU_Danger) project.
 
 ```Ke386SetIoAccessMap``` and ```Ke386IoSetAccessProcess``` is NOT available in Win10/Server 2019 and above. It's better to learn how the x86 CPU work within TSS and IOPM.
-
 
 Currently achieved:
 - Disable Write-Protection by modifiy CR0
@@ -15,11 +16,11 @@ Currently achieved:
 
 ## Learning Resources
 
+0. [Lab Experiment HandBooks](LabHandBooks): Contains Microsoft Learn Student Ambassador Workshop
 1. Download the WinDbg Preview tool from the Microsoft Store or [Non Store](DownloadWinDbgPreviewNonStore)
 2. Install WDK [https://learn.microsoft.com/zh-cn/windows-hardware/drivers/download-the-wdk?wt.mc_id=studentamb_188195]
 3. Read Kernel Debugging Document on the Microsoft Learn [https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-up-a-network-debugging-connection?wt.mc_id=studentamb_188195]
 4. Read [My Experiment log](Experiment_Record_GPT4.md) for more details
-
 
 ## Features  
   
