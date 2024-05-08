@@ -1,4 +1,4 @@
-# Debugging Windows Kernel On Azure
+# Debugging Windows Kernel On Azure (x64)
 
 ### Introduction
 
@@ -18,4 +18,12 @@ You know, Azure's Virtual Network has ***shipped with DHCP and NAT support***. T
 
 3. Follow the Microsoft Learn Guide to [Auto Setup Network Kernel Debugging](https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-up-a-network-debugging-connection-automatically?wt.mc_id=studentamb_188195). Note the Network Kernel Debugging protocol is based on ***UDP Reverse Connect Session***, if you get trouble you should configure Firewall on ***Host*** VM to allow the inbound connection.
 
-4. 
+4. If the ***Target*** successfully connect to ***Host*** at ***Boot Time***, the ***PatchGuard*** might be partial Disabled, that means you can do more Experiment!
+
+5. You can download the New ***WinDbg Preview*** which having good GUI experience on ***Host*** with Following Steps:
+    - ```curl https://aka.ms/windbg/download -o windbgp.xml```
+    - Read the windbgp.xml, and found ```MainBundle.Uri``` inside it. Download it as ```windbgp.zip```
+    - Unzip the ```windbgp.zip``` file, found ```windbg_win7-x64.msix``` inside it. Then unzip this ```msix``` Again
+    - Double click ```DbgX.Shell.exe``` to run!
+
+6. Go ahead to explorer how to use New ***WinDbg Preview*** in Kernel Debug ***Yourself***
