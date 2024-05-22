@@ -131,7 +131,7 @@
     <ClCompile Include="UserMode_Caller.c" />
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="ReadRegister.s">
+    <MASM Include="AsmGadget.s">
       <FileType>Document</FileType>
     </MASM>
   </ItemGroup>

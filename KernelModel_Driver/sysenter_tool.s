@@ -20,4 +20,9 @@ Disable_WriteProtect PROC
     ret
 Disable_WriteProtect ENDP
 
+GetCR3Value PROC
+    mov rax, cr3
+    ret
+GetCR3Value ENDP
+
 END

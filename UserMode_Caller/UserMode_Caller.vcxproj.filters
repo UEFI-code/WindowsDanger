@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="ReadRegister.s">
+    <MASM Include="AsmGadget.s">
       <Filter>ソース ファイル</Filter>
     </MASM>
   </ItemGroup>

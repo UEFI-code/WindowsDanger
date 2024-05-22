@@ -87,6 +87,7 @@ void MuShi();
 void NOP_Toy();
 void Disable_WriteProtect();
 void HackGDT();
+void* GetCR3Value();
 
 extern UNICODE_STRING DeviceName;
 extern UNICODE_STRING sddl;

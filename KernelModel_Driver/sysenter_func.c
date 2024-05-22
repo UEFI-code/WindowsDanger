@@ -46,6 +46,17 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 				// IOPL setting func not work on Win10/Server2019, should manully do it.
 				
                 break;
+			case 2:
+				DbgPrint("Here is 2!\n");
+                DbgBreakPoint();
+				PHYSICAL_ADDRESS theCR3 = { 0 };
+				theCR3.QuadPart = (UINT64)GetCR3Value() & 0xFFFFFFFFFFFFFF00;
+				void* cr3_mapped_p = MmMapIoSpace(theCR3, 0xfff * 8, MmNonCached);
+				if (cr3_mapped_p != NULL)
+				{
+					DbgPrint("Successing Mapped CR3 %p -> %p\n", (void *)theCR3.QuadPart, cr3_mapped_p);
+				}
+				break;
 			default:
 				DbgPrint("Here is default!\n");
                 DbgBreakPoint();
