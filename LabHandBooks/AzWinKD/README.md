@@ -21,7 +21,7 @@ You know, Azure's Virtual Network has ***shipped with DHCP and NAT support***. T
 4. If the ***Target*** successfully connect to ***Host*** at ***Boot Time***, the ***PatchGuard*** might be partial Disabled, that means you can do more Experiment!
 
 5. You can download the New ***WinDbg Preview*** which having good GUI experience on ***Host*** with Following Steps:
-    - ```curl https://aka.ms/windbg/download -o windbgp.xml```
+    - Download: https://aka.ms/windbg/download
     - Read the windbgp.xml, and found ```MainBundle.Uri``` inside it. Download it as ```windbgp.zip```
     - Unzip the ```windbgp.zip``` file, found ```windbg_win7-x64.msix``` inside it. Then unzip this ```msix``` Again
     - Double click ```DbgX.Shell.exe``` to run!
