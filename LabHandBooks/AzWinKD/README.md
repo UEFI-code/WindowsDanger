@@ -4,7 +4,7 @@
 
 As we know, most popular Virtual Machine backend on Azure is Hyper-V (You can even use ```dmesg``` command in Linux VM to see the Host Version!)
 
-On other hand, newer Windows Kernel supported Network Debugging, and Support Hyper-V NIC card. DHCP is needed to allocate the target machine an IP address.
+On other hand, newer Windows Kernel supported Network Debugging, and Support Hyper-V NIC card. DHCP is needed for the target machine to allocate an IP address.
 
 You know, Azure's Virtual Network has ***shipped with DHCP and NAT support***. That means, you almost do not need do anything around DHCP and NAT settings!
 
