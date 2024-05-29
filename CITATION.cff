@@ -1,0 +1,12 @@
+cff-version: 1.0.0
+message: If you use this software, please cite it as below.
+title: WindowsDanger
+authors:
+  - family-names: WindowsDanger Team
+url: https://github.com/UEFI-code/WindowsDanger
+preferred-citation:
+  type: opensource-software-toolkit
+  title: "WindowsDanger: An open-source project for learning and hacking Windows kernel"
+  authors:
+    - family-names: Zhang
+      given-names: Shizhuo
