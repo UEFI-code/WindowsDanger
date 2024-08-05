@@ -14,6 +14,16 @@ The 42th control the acceptance of lower privliage code running here. If we hack
 
 [GDT Info on OSDev](https://wiki.osdev.org/Global_Descriptor_Table#:~:text=The%20Global%20Descriptor%20Table%20%28GDT%29%20is%20a%20binary,Descriptor%20Table%20exists%20containing%20task%20and%20interrupt%20descriptors.)
 
+[Segment Selector on OSDev](https://wiki.osdev.org/Segment_Selector)
+
+**Also be noted, in x64 Long Mode, GDT is not limited the Memory Access.**
+
+**But if you attempt to jump RIP to 'Ring3 Code Area' from Ring0 DIRECTLY, you will still got exception.**
+
+**That is because the Paging Mechanism still effective.**
+
+**So you might also hacking the Page Table.**
+
 ## Watch the GDT
 
 in WinDbg Command Line:
