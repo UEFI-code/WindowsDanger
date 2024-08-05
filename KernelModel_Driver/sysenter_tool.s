@@ -1,15 +1,11 @@
 .code
 
 NOP_Toy PROC  
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
+    dd 90909090h
+    dd 90909090h
+    dd 90909090h
+    dd 90909090h
+    dd 90909090h
     ret
 NOP_Toy ENDP
 
