@@ -22,13 +22,16 @@ int main()
 		printf("CreateFile failed!\n");
 		goto end;
 	}
-	InitRSIRDI();
+
+	UINT8* p = (UINT8*)VirtualAlloc(NULL, 0x1000, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	memset(p, 0x90, 0x1000);
+	printf("Allocated Executable Memory at %p\n", p);
 	while (1)
 	{
 		printf("Type CTL code: ");
 		scanf_s("%d", &ctl_code);
 		DeviceIoControl(device, ctl_code, NULL, 0, NULL, 0, &ret_code, 0);
-		printf_s("RSI = %016llx, RDI = %016llx, CS = %016llx, DS = %016llx\n", GetRSI(), GetRDI(), GetCS(), GetDS());
+		printf_s("DeviceIoControl returned %d\n", ret_code);
 	}
 	CloseHandle(device);
 end:
