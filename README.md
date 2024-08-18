@@ -13,6 +13,7 @@ This project is still under development. For more quick access, please use the [
 Currently achieved:
 - Disable Write-Protection by modifiy CR0
 - Hack Ring3 Segment in GDT to Ring0
+- Insert a new IDT entry 78H
 
 ## Learning Resources
 
