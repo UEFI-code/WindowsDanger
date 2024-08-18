@@ -74,23 +74,25 @@ HackIDT_FireAndForget2 PROC
     ; incoming parameters: INT number, pointer to the function
     push rcx ; Backup INT number
     push rdx ; Backup pointer to the function
-    ; We need allocate memory size of 10 bytes
-    ; We need to allocate memory in non-paged pool
+
+    ; We need allocate non-paged memory, size 10 bytes for SIDT and LIDT (2 bytes for size and 8 bytes for address)
     mov rcx, 040h ; 
-    mov rdx, 10 ; Another 8 bytes for LIDT
+    mov rdx, 10 ;
     mov r8, 0233h ; Tag is 233
     call ExAllocatePool2
     ; Now rax is pointer to allocated memory.
     sidt fword ptr [rax] ; Now the IDT memory pointer stored in rax pointed memory. Get that pointer to rax!
     mov rax, [rax + 2] ; Get IDT pointer, first 2 bytes is limit, next 8 bytes is base
-    ; before we start, we need to bypass the memory protection
+    
+    ; before we start, we need to bypass the memory protection. Hack CR0 also work!
     mov rcx, rax
     call MmGetPhysicalAddress
     mov rcx, rax
     mov rdx, 256 * 16
     mov r8, 0
     call MmMapIoSpace
-    ; Now we may bypass the memory protection
+
+    ; Now we may bypassed the memory protection
     pop rdx
     pop rcx
     lea rcx, [rcx * 4]
@@ -114,9 +116,10 @@ TestINT ENDP
 
 myINTHandler PROC
     int 03h
+    add rsp, 8 ; remove the parameters from the stack
     mov rcx, offset strA
     call DbgPrint
-    iret
+    iretq
 myINTHandler ENDP
 
 END
