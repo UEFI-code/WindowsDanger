@@ -1,7 +1,20 @@
 ﻿  Building 'WindowsDanger' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\WindowsDanger.inf
-  Stamping [Version] section with DriverVer=08/05/2024,0.37.34.134
-  Assembling sysenter_tool.s...
+  Stamping [Version] section with DriverVer=08/18/2024,3.0.17.137
+  Assembling IDTTool.s...
+  IDTHacker.c
+C:\Users\uefi\WindowsDanger\KernelModel_Driver\IDTHacker.c(16,33): warning C4152: nonstandard extension, function/data pointer conversion in expression
+  ProcessAndThread.c
+C:\Users\uefi\WindowsDanger\KernelModel_Driver\ProcessAndThread.c(44,19): warning C4047: '==': 'HANDLE' differs in levels of indirection from 'int'
+C:\Users\uefi\WindowsDanger\KernelModel_Driver\ProcessAndThread.c(93,14): warning C4996: 'ExAllocatePoolWithTag': ExAllocatePoolWithTag is deprecated, use ExAllocatePool2.
+  main.c
+C:\Users\uefi\WindowsDanger\KernelModel_Driver\main.c(34,53): warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'PDRIVER_DISPATCH'
+C:\Users\uefi\WindowsDanger\KernelModel_Driver\main.c(34,53): warning C4133: '=': incompatible types - from 'void (__cdecl *)()' to 'PDRIVER_DISPATCH'
+C:\Users\uefi\WindowsDanger\KernelModel_Driver\main.c(35,52): warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'PDRIVER_DISPATCH'
+C:\Users\uefi\WindowsDanger\KernelModel_Driver\main.c(35,52): warning C4133: '=': incompatible types - from 'void (__cdecl *)()' to 'PDRIVER_DISPATCH'
+  sysenter_func.c
+C:\Users\uefi\WindowsDanger\KernelModel_Driver\sysenter_func.c(58,14): warning C4189: 'pCurrentThread': local variable is initialized but not referenced
+  Generating Code...
   WindowsDanger.vcxproj -> C:\Users\uefi\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
   Done Adding Additional Store
   Successfully signed: C:\Users\uefi\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys

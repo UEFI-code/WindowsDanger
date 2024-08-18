@@ -35,16 +35,7 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 				DbgPrint("Here is 1!\n");
                 DbgBreakPoint();
 				HackGDT();
-
-				// if (pIOPM == NULL)
-				// {
-				// 	pIOPM = MmAllocateNonCachedMemory(65536 / 8);
-				// 	RtlZeroMemory(pIOPM, 65536 / 8);
-				// }
-				// Ke386SetIoAccessMap(1, pIOPM); // Copy IOPM to TSS
-				// Ke386IoSetAccessProcess(IoGetCurrentProcess(), 1);
-				// IOPL setting func not work on Win10/Server2019, should manully do it.
-				
+				DbgPrint("We hacked GDT to elevate!\n");
                 break;
 			case 2:
 				DbgPrint("Here is 2!\n");
@@ -57,6 +48,10 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 					DbgPrint("Successing Mapped CR3 %p -> %p\n", (void *)theCR3.QuadPart, cr3_mapped_p);
 				}
 				break;
+			case 3:
+				DbgPrint("Here is 3!\n");
+				DbgBreakPoint();
+				RegisterMyINTHandler();
 			default:
 				DbgPrint("Here is default!\n");
                 DbgBreakPoint();
