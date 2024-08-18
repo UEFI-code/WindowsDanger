@@ -17,7 +17,8 @@ int main()
     while(1)
     {
         printf("Enter Interrupt Number: ");
-        scanf("%x", &INT_num);
+        scanf_s("%x", &INT_num);
+        printf("Triggering Interrupt 0x%X\n", INT_num);
         exe[1] = INT_num;
         ((void(*)())exe)();
     }
