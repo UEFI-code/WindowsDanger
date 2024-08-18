@@ -52,6 +52,8 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 				DbgPrint("Here is 3!\n");
 				DbgBreakPoint();
 				RegisterMyINTHandler();
+				DbgPrint("We registered INT 0x78 handler!\n");
+				break;
 			default:
 				DbgPrint("Here is default!\n");
                 DbgBreakPoint();

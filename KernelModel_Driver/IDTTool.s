@@ -70,11 +70,16 @@ HackIDT_FireAndForget PROC
 HackIDT_FireAndForget ENDP
 
 HackIDT_FireAndForget2 PROC
-    int 03h ; Debug Break
+    ; int 03h ; Debug Break
     ; incoming parameters: INT number, pointer to the function
     push rcx ; Backup INT number
     push rdx ; Backup pointer to the function
 
+    ; before we play next, let's prepare the safe stack (for stupid NT API)
+    push rbp
+    sub rsp, 0ffh; Fly away ...
+    lea rbp, [rsp + 0ffh]; ... to the safe place
+    
     ; We need allocate non-paged memory, size 10 bytes for SIDT and LIDT (2 bytes for size and 8 bytes for address)
     mov rcx, 040h ; 
     mov rdx, 10 ;
@@ -93,6 +98,9 @@ HackIDT_FireAndForget2 PROC
     call MmMapIoSpace
 
     ; Now we may bypassed the memory protection
+    ; NT API is useless now, we can restore the stack height
+    add rsp, 0ffh; Dive back ...
+    pop rbp;
     pop rdx
     pop rcx
     lea rcx, [rcx * 4]
@@ -116,9 +124,16 @@ TestINT ENDP
 
 myINTHandler PROC
     int 03h
-    add rsp, 8 ; remove the parameters from the stack
+    ; Before we play next, let's prepare the safe stack (for stupid NT API)
+    push rbp
+    sub rsp, 0ffh; Fly away ...
+    lea rbp, [rsp + 0ffh]; ... to the safe place
+    ; Now we can play
     mov rcx, offset strA
     call DbgPrint
+    ; NT API is useless now, we can restore the stack height
+    add rsp, 0ffh; Dive back ...
+    pop rbp;
     iretq
 myINTHandler ENDP
 
