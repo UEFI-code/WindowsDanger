@@ -27,19 +27,19 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 		{
 		    case 0:
                 DbgPrint("Here is 0!\n");
-                DbgBreakPoint();
+                // DbgBreakPoint();
                 Disable_WriteProtect();
 				DbgPrint("We hacked to Disable Write-Protection!\n");
                 break;
             case 1:
 				DbgPrint("Here is 1!\n");
-                DbgBreakPoint();
+                // DbgBreakPoint();
 				HackGDT();
 				DbgPrint("We hacked GDT to elevate!\n");
                 break;
 			case 2:
 				DbgPrint("Here is 2!\n");
-                DbgBreakPoint();
+                // DbgBreakPoint();
 				PHYSICAL_ADDRESS theCR3 = { 0 };
 				theCR3.QuadPart = (UINT64)GetCR3Value() & 0xFFFFFFFFFFFFFF00;
 				void* cr3_mapped_p = MmMapIoSpace(theCR3, 0xfff * 8, MmNonCached);
@@ -50,13 +50,13 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 				break;
 			case 3:
 				DbgPrint("Here is 3!\n");
-				DbgBreakPoint();
+				// DbgBreakPoint();
 				RegisterMyINTHandler();
 				DbgPrint("We registered INT 0x78 handler!\n");
 				break;
 			default:
 				DbgPrint("Here is default!\n");
-                DbgBreakPoint();
+                // DbgBreakPoint();
 				PKTHREAD pCurrentThread = KeGetCurrentThread();
 				//PKTRAP_FRAME pTrap_frame = (PKTRAP_FRAME)((UINT8 *)pCurrentThread->KernelStack + 384);
 				//DbgPrint("RSI=%llX, RDI = %llX, CS = %x\n", pTrap_frame->Rsi, pTrap_frame->Rdi, pTrap_frame->SegCs);
