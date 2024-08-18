@@ -123,7 +123,7 @@ TestINT PROC
 TestINT ENDP
 
 myINTHandler PROC
-    int 03h
+    ; int 03h
     ; Before we play next, let's prepare the safe stack (for stupid NT API)
     push rbp
     sub rsp, 0ffh; Fly away ...
