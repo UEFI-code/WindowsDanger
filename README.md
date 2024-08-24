@@ -15,6 +15,9 @@ Currently achieved:
 - Hack Ring3 Segment in GDT to Ring0
 - Insert a new IDT entry 78H
 
+Known Issues:
+- Multiple CPU Failure. Just use one Core CPU VM for now.
+
 ## Learning Resources
 
 0. [Lab Experiment HandBooks](LabHandBooks): Contains Microsoft Learn Student Ambassador Workshop
@@ -22,6 +25,7 @@ Currently achieved:
 2. Install WDK [https://learn.microsoft.com/zh-cn/windows-hardware/drivers/download-the-wdk?wt.mc_id=studentamb_188195]
 3. Read Kernel Debugging Document on the Microsoft Learn [https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-up-a-network-debugging-connection?wt.mc_id=studentamb_188195]
 4. Read [My Experiment log](Experiment_Record_GPT4.md) for more details
+5. Cource: [Arch2001_x86-64_OS_Internals](https://apps.p.ost2.fyi/learning/course/course-v1:OpenSecurityTraining2+Arch2001_x86-64_OS_Internals+2021_v1/home)
 
 ## Features  
   
