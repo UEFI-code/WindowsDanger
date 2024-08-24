@@ -18,6 +18,10 @@ Currently achieved:
 Known Issues:
 - Multiple CPU Failure. Just use one Core CPU VM for now.
 
+Ideas:
+- Use soft ```int``` instruct from Ring3, and hack stack for return CS RPL -> 0, then ```iretq```.
+- Insert a new Call Gate, then call it from Ring3, then hack stack for return CS RPL -> 0, then return.
+
 ## Learning Resources
 
 0. [Lab Experiment HandBooks](LabHandBooks): Contains Microsoft Learn Student Ambassador Workshop
