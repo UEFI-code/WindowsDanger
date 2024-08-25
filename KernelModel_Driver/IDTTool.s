@@ -21,7 +21,7 @@ SetIDT PROC
     ret
 SetIDT ENDP
 
-HackIDT_FireAndForget PROC
+HackIDT_FireAndForget PROC ; Retired, leave for reference
     int 03h ; Debug Break
     ; incoming parameters: INT number, pointer to the function
     push rcx ; Backup INT number
@@ -93,7 +93,7 @@ HackIDT_FireAndForget2 PROC
     mov rdx, 256 * 16
     xor r8, r8
     call MmMapIoSpace
-    
+
     ; Now we may bypassed the memory protection
     ; NT API is useless now, we can restore the stack height
     add rsp, 0ffh; Dive back ...
