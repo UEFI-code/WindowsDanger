@@ -38,7 +38,9 @@ Ideas:
 - Support for Windows operating systems  
   
 ## Installation  
-  
+
+**MUST Attach Kernel Debugger to prevent BSOD**, because ```int 3``` will trigger BSOD without Kernel Debugger.
+
 1. Download the latest version of the WindowsDanger driver.  
 2. Copy the driver file to an appropriate directory (e.g., `C:\Windows\System32\drivers`).  
 3. Run the following command with administrator privileges to install the driver:  
