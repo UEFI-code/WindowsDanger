@@ -75,28 +75,25 @@ HackIDT_FireAndForget2 PROC
     push rcx ; Backup INT number
     push rdx ; Backup pointer to the function
 
+    ; now, save IDTR into stack, 10 bytes
+    sub rsp, 10
+    sidt fword ptr [rsp]
+    ; seams Windows set the limit to 0x0FFF, so we just ignore it
+    add rsp, 2
+    pop rcx; Get the IDT pointer, then transfer to MmGetPhysicalAddress below ...
+
     ; before we play next, let's prepare the safe stack (for stupid NT API)
     push rbp
     sub rsp, 0ffh; Fly away ...
     lea rbp, [rsp + 0ffh]; ... to the safe place
     
-    ; We need allocate non-paged memory, size 10 bytes for SIDT and LIDT (2 bytes for size and 8 bytes for address)
-    mov rcx, 040h ; 
-    mov rdx, 10 ;
-    mov r8, 0233h ; Tag is 233
-    call ExAllocatePool2
-    ; Now rax is pointer to allocated memory.
-    sidt fword ptr [rax] ; Now the IDT memory pointer stored in rax pointed memory. Get that pointer to rax!
-    mov rax, [rax + 2] ; Get IDT pointer, first 2 bytes is limit, next 8 bytes is base
-    
-    ; before we start, we need to bypass the memory protection. Hack CR0 also work!
-    mov rcx, rax
+    ; Bypass the memory protection. Hack CR0 also work!
     call MmGetPhysicalAddress
     mov rcx, rax
     mov rdx, 256 * 16
-    mov r8, 0
+    xor r8, r8
     call MmMapIoSpace
-
+    
     ; Now we may bypassed the memory protection
     ; NT API is useless now, we can restore the stack height
     add rsp, 0ffh; Dive back ...

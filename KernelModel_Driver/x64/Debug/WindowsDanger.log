@@ -1,8 +1,8 @@
 ﻿  Building 'WindowsDanger' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\WindowsDanger.inf
-  Stamping [Version] section with DriverVer=08/18/2024,7.42.7.212
-  sysenter_func.c
-C:\Users\uefi\WindowsDanger\KernelModel_Driver\sysenter_func.c(60,14): warning C4189: 'pCurrentThread': local variable is initialized but not referenced
+  Stamping [Version] section with DriverVer=08/25/2024,1.29.56.112
+  IDTHacker.c
+C:\Users\uefi\WindowsDanger\KernelModel_Driver\IDTHacker.c(16,34): warning C4152: nonstandard extension, function/data pointer conversion in expression
   WindowsDanger.vcxproj -> C:\Users\uefi\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
   Done Adding Additional Store
   Successfully signed: C:\Users\uefi\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys

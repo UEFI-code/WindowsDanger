@@ -11,7 +11,7 @@ void myINTHandler();
 void RegisterMyINTHandler()
 {
     // trigger breakpoint
-    //DbgBreakPoint();
+    DbgBreakPoint();
     //UINT8 *showMem = ExAllocatePool2(POOL_FLAG_NON_PAGED, 0x1000, '2333');
     HackIDT_FireAndForget2(0x78, myINTHandler);
     TestINT();
