@@ -1,9 +1,7 @@
 ﻿  Building 'WindowsDanger' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\WindowsDanger.inf
-  Stamping [Version] section with DriverVer=08/25/2024,2.0.5.803
+  Stamping [Version] section with DriverVer=08/25/2024,3.26.15.942
   Assembling IDTTool.s...
-  IDTHacker.c
-C:\Users\uefi\WindowsDanger\KernelModel_Driver\IDTHacker.c(15,34): warning C4152: nonstandard extension, function/data pointer conversion in expression
   WindowsDanger.vcxproj -> C:\Users\uefi\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys
   Done Adding Additional Store
   Successfully signed: C:\Users\uefi\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys

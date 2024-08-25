@@ -106,6 +106,7 @@ HackIDT_FireAndForget2 PROC
     mov [rcx], dx ; Store lower 16 bits of the pointer to the function
     ; now shift rax to right 16 bits
     shr rdx, 16
+    mov byte ptr [rcx + 2], 010h ; Select Ring0 Kernel Segment!
     mov byte ptr [rcx + 5], 0EEh ; Allow user mode access
     mov [rcx + 6], edx ; Store higher 32 bits of the pointer to the function
     shr rdx, 32
@@ -121,17 +122,7 @@ TestINT ENDP
 
 myINTHandler PROC
     cli ; Prevent Another Interrupt
-    ; int 03h
-    ; Before we play next, let's prepare the safe stack (for stupid NT API)
-    push rbp
-    sub rsp, 0ffh; Fly away ...
-    lea rbp, [rsp + 0ffh]; ... to the safe place
-    ; Now we can play
-    mov rcx, offset strA
-    call DbgPrint
-    ; NT API is useless now, we can restore the stack height
-    add rsp, 0ffh; Dive back ...
-    pop rbp;
+    ; We can't use the Stupid NT API here, including DbgPoint Handler, so we just do nothing
     sti ; Enable Interrupt
     iretq
 myINTHandler ENDP
