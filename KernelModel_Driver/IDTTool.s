@@ -120,6 +120,7 @@ TestINT PROC
 TestINT ENDP
 
 myINTHandler PROC
+    cli ; Prevent Another Interrupt
     ; int 03h
     ; Before we play next, let's prepare the safe stack (for stupid NT API)
     push rbp
@@ -131,6 +132,7 @@ myINTHandler PROC
     ; NT API is useless now, we can restore the stack height
     add rsp, 0ffh; Dive back ...
     pop rbp;
+    sti ; Enable Interrupt
     iretq
 myINTHandler ENDP
 
