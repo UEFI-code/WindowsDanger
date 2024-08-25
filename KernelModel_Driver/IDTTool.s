@@ -123,6 +123,15 @@ TestINT ENDP
 myINTHandler PROC
     cli ; Prevent Another Interrupt
     ; We can't use the Stupid NT API here, including DbgPoint Handler, so we just do nothing
+    ; Gap 64 bytes for you to play
+    dq 9090909090909090h ; NOP
+    dq 9090909090909090h ; NOP
+    dq 9090909090909090h ; NOP
+    dq 9090909090909090h ; NOP
+    dq 9090909090909090h ; NOP
+    dq 9090909090909090h ; NOP
+    dq 9090909090909090h ; NOP
+    dq 9090909090909090h ; NOP
     sti ; Enable Interrupt
     iretq
 myINTHandler ENDP
