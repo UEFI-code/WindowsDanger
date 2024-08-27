@@ -23,6 +23,7 @@ int main()
     exe_for_ring0[4] = 0xF4; // HLT
     exe_for_ring0[8] = 0xEB; // JMP SHORT 
     exe_for_ring0[9] = 0xFA; // -5 from here
+    printf("Ring0 Playground: %p\n", exe_for_ring0);
 
     UINT8 INT_num = 0;
 
