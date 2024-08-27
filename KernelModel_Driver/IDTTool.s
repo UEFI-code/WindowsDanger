@@ -122,17 +122,14 @@ TestINT ENDP
 
 myINTHandler PROC
     cli ; Prevent Another Interrupt
-    ; We can't use the Stupid NT API here, including DbgPoint Handler, so we just do nothing
-    ; Gap 64 bytes for you to play
+    ; We can't use the Stupid NT API here, including DbgPoint Handler (So UnDebuggable within WinDbg)
+    pop rax;
+    add rsp, 28h; Restore the stack
+    ; Gap 16 bytes for you to play
     dq 9090909090909090h ; NOP
     dq 9090909090909090h ; NOP
-    dq 9090909090909090h ; NOP
-    dq 9090909090909090h ; NOP
-    dq 9090909090909090h ; NOP
-    dq 9090909090909090h ; NOP
-    dq 9090909090909090h ; NOP
-    dq 9090909090909090h ; NOP
-    sti ; Enable Interrupt
+    sti ; Restore Interrupt
+    jmp rax; keep ring0 23333
     iretq
 myINTHandler ENDP
 
