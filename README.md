@@ -1,8 +1,14 @@
 # WindowsDanger  
   
-WindowsDanger is an open-source project that help developers to Learn & Hack Windows Kernel.
+WindowsDanger is an open-source project that help developers to Learn Windows Kernel and other x86 Features.
 
-This driver **Dreamed** to assist developers, hardware debuggers, and reverse engineers in accessing and manipulating system resources more conveniently. By installing and launching this driver, you can elevate all threads to Ring0, allowing for full control over low-level hardware and system resources.  
+**But, We are NOT modify/patch Windows Code**
+
+**We Directly Modify x86 Context Instead**
+
+**So, We will not bypass PatchGuard, Using Official Test-Mode Instead**
+
+This driver **Dreamed** to assist developers accessing and manipulating system resources more conveniently. By installing and launching this driver, you can elevate all threads to Ring0, allowing for full control over low-level hardware and system resources.  
   
 ⚠️ **Warning**: Please be aware that using WindowsDanger may result in system instability, data loss, or other unintended consequences. Use with caution and perform testing in a safe environment. 
 
@@ -67,7 +73,6 @@ sc stop WindowsDanger
 sc delete WindowsDanger
 ```
 
-  
 3. Delete the driver file.  
   
 ## License  
