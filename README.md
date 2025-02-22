@@ -12,7 +12,7 @@ This driver **Dreamed** to assist developers accessing and manipulating system r
   
 ⚠️ **Warning**: Please be aware that using WindowsDanger may result in system instability, data loss, or other unintended consequences. Use with caution and perform testing in a safe environment. 
 
-This project is still under development. For more quick access, please use the [QEMU_Danger](https://github.com/UEFI-code/QEMU_Danger) project.
+This project is still under development. For more quick access, please use the [QEMU_Danger_x86](https://github.com/UEFI-code/QEMU_Danger_x86) project.
 
 ```Ke386SetIoAccessMap``` and ```Ke386IoSetAccessProcess``` is NOT available in Win10/Server 2019 and above. It's better to learn how the x86 CPU work within TSS and IOPM.
 
