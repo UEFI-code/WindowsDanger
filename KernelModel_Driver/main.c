@@ -5,6 +5,13 @@
 //#include <ntifs.h>
 #include "mydef.h"
 
+UNICODE_STRING DeviceName = RTL_CONSTANT_STRING(L"\\Device\\WinDanger");
+UNICODE_STRING sddl = RTL_CONSTANT_STRING(L"D:P(A;;GA;;;WD)");
+UNICODE_STRING DeviceGUID = RTL_CONSTANT_STRING(L"23333333-2333-2333-2333-233333333333");
+PDEVICE_OBJECT g_DeviceObj = 0;
+UNICODE_STRING DeviceSymbolicLinkName = RTL_CONSTANT_STRING(L"\\??\\WinDangerLink");
+UINT8 *pIOPM = NULL;
+
 VOID DriverUnload(PDRIVER_OBJECT pDriverObject)
 {
     DbgPrint("Driver Unload Called\n");

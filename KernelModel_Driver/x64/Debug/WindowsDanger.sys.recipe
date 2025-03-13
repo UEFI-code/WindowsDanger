@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\uefi\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys</FullPath>
+      <FullPath>C:\Users\Administrator\WindowsDanger\KernelModel_Driver\x64\Debug\WindowsDanger.sys</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

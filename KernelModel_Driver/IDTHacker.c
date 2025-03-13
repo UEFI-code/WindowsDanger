@@ -1,8 +1,6 @@
 #include<ntddk.h>
 #include "mydef.h"
 
-
-void HackIDT_FireAndForget(UINT64 int_id, void* func);
 void HackIDT_FireAndForget2(UINT64 int_id, void *func);
 void TestINT();
 

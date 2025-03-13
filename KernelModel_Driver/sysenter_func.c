@@ -1,16 +1,6 @@
 #include "ntddk.h"
 #include "mydef.h"
 
-UNICODE_STRING DeviceName = RTL_CONSTANT_STRING(L"\\Device\\WinDanger");
-UNICODE_STRING sddl = RTL_CONSTANT_STRING(L"D:P(A;;GA;;;WD)");
-UNICODE_STRING DeviceGUID = RTL_CONSTANT_STRING(L"23333333-2333-2333-2333-233333333333");
-PDEVICE_OBJECT g_DeviceObj = 0;
-UNICODE_STRING DeviceSymbolicLinkName = RTL_CONSTANT_STRING(L"\\??\\WinDangerLink");
-UINT8 *pIOPM = NULL;
-
-//void Ke386SetIoAccessMap();
-//void Ke386IoSetAccessProcess();
-
 NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 {
 	if (DeviceObj != 0 && myIRP != 0)
@@ -28,7 +18,7 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 		    case 0:
                 DbgPrint("Here is 0!\n");
                 // DbgBreakPoint();
-                Disable_WriteProtect();
+				KeIpiGenericCall(Disable_WriteProtect, NULL);
 				DbgPrint("We hacked to Disable Write-Protection!\n");
                 break;
             case 1:

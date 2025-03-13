@@ -1,22 +1,22 @@
 #include "ntddk.h"
 
-UINT8 GDTDescriptorTable[10] = {0};
-
 void GetGDT(UINT8 *Buf);
 void SetGDT(UINT8 *Buf);
 void DisableInterrupts();
 void EnableInterrupts();
-void Disable_WriteProtect();
+UINT8 *BypassWP(UINT8 *Addr, UINT64 Size);
 
 VOID HackGDT()
 {
+    UINT8 GDTDescriptorTable[10] = {0};
     DisableInterrupts();
-    Disable_WriteProtect();
     GetGDT(GDTDescriptorTable);
     UINT16 GDT_Len = *(UINT16 *)(GDTDescriptorTable + 0);
     UINT8 *GDT_Base = (UINT8 *)(*(UINT64 *)(GDTDescriptorTable + 2));
     DbgPrint("GDT Length: %d\n", GDT_Len);
     DbgPrint("GDT Base: %p\n", GDT_Base);
+    GDT_Base = BypassWP(GDT_Base, GDT_Len * 8);
+    DbgPrint("GDT Base Bypass WP: %p\n", GDT_Base);
     UINT8 *Now_GDT = GDT_Base;
     for(UINT16 i = 0; i < GDT_Len; i += 1)
     {

@@ -1,2 +1,10 @@
 .vs
 .DS_Store
+*.obj
+*.pdb
+*.plog
+*.log
+*.suo
+*.user
+*.tlog
+*.lastbuildstate
