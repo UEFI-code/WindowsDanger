@@ -19,6 +19,13 @@ Disable_WriteProtect PROC
     ret
 Disable_WriteProtect ENDP
 
+Disable_SMAP_SMEP PROC
+    mov rax, cr4
+    and rax, 0FFCFFFFFh
+    mov cr4, rax
+    ret
+Disable_SMAP_SMEP ENDP
+
 GetCR3Value PROC
     mov rax, cr3
     ret

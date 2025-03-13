@@ -42,7 +42,13 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 				DbgPrint("Here is 3!\n");
 				// DbgBreakPoint();
 				RegisterMyINTHandler();
-				DbgPrint("We registered INT 0x78 handler!\n");
+				DbgPrint("We registered INT 0x78 and 0x79!\n");
+				break;
+			case 4:
+				DbgPrint("Here is 4!\n");
+				// DbgBreakPoint();
+				KeIpiGenericCall(Disable_SMAP_SMEP, NULL);
+				DbgPrint("We disabled SMAP and SMEP!\n");
 				break;
 			default:
 				DbgPrint("Here is default!\n");

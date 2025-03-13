@@ -86,6 +86,7 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP);
 void MuShi();
 void NOP_Toy();
 void Disable_WriteProtect();
+void Disable_SMAP_SMEP();
 void HackGDT();
 void* GetCR3Value();
 void RegisterMyINTHandler();

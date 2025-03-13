@@ -19,14 +19,15 @@ This project is still under development. For more quick access, please use the [
 Currently achieved:
 - Disable Write-Protection by modifiy CR0
 - Hack Ring3 Segment in GDT to Ring0
-- Insert a new IDT entry 78H
+- Insert new user-callable IDT entries 78H and 79H, 78H will return back normally, while 79H will hack CS & SS to Ring0
+- Disable SMAP/SMEP by modify CR4
+- Adapt Multi-Processor System
 
 Known Issues:
-- Multiple CPU Failure. Just use one Core CPU VM for now.
+- Unknown.
 
 Ideas:
 - Use soft ```int``` instruct from Ring3, and hack stack for return CS RPL -> 0, then ```iretq```.
-- Insert a new Call Gate, then call it from Ring3, then hack stack for return CS RPL -> 0, then return.
 
 ## Learning Resources
 

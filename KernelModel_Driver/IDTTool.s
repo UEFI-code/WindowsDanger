@@ -4,8 +4,10 @@ extern DbgPrint: proc
 
 .data
 
-    strA:
-        db "Code in INT Handler\n", 0
+    str_78h:
+        db "Code in INT 78h Handler, will ret back normally\n", 0
+    str_79h:
+        db "Code in INT 79h Handler, will hack CS and SS to Ring0\n", 0
 
 .code
 
@@ -65,21 +67,80 @@ HackIDT_FireAndForget2 PROC
     ret
 HackIDT_FireAndForget2 ENDP
 
-TestINT PROC
-	int 078h
-    ret
-TestINT ENDP
+myINTHandler_78h PROC
+    ; Stack Layout:
+    ; RSP + 0 : return address
+    ; RSP + 8 : orignal CS
+    ; RSP + 16 : orignal RFLAGS
+    ; RSP + 24 : orignal RSP
+    ; RSP + 32 : orignal SS
 
-myINTHandler PROC
-    ; We can't use the Stupid NT API here, including DbgPoint Handler (So UnDebuggable within WinDbg)
-    pop rax;
-    add rsp, 28h; Restore the stack
+    swapgs; swap to kernel gs
+
     ; Gap 16 bytes for you to play
     dq 9090909090909090h ; NOP
+
+    ; try to call DbgPrint
+    ; before that we need to prepare the stack
+    push rbp
+    mov rbp, rsp
+    sub rsp, 0ffh
+
+    ; let's do it
+    lea rcx, str_78h
+    call DbgPrint
+
+    ; restore the stack
+    add rsp, 0ffh
+    pop rbp
+
+    ; Gap 16 bytes for you to play
     dq 9090909090909090h ; NOP
-    sti ; Restore Interrupt
-    jmp rax; keep ring0 23333
+
+    swapgs; swap back to user gs
     iretq
-myINTHandler ENDP
+myINTHandler_78h ENDP
+
+myINTHandler_79h PROC
+    ; Stack Layout:
+    ; RSP + 0 : return address
+    ; RSP + 8 : orignal CS
+    ; RSP + 16 : orignal RFLAGS
+    ; RSP + 24 : orignal RSP
+    ; RSP + 32 : orignal SS
+
+    swapgs; swap to kernel gs
+
+    ; Gap 16 bytes for you to play
+    dq 9090909090909090h ; NOP
+
+    ; try to call DbgPrint
+    ; before that we need to prepare the stack
+    push rbp
+    mov rbp, rsp
+    sub rsp, 0ffh
+
+    ; let's do it
+    lea rcx, str_79h
+    call DbgPrint
+
+    ; restore the stack
+    add rsp, 0ffh
+    pop rbp
+
+    ; Gap 16 bytes for you to play
+    dq 9090909090909090h ; NOP
+
+    ; let's Hack CS and SS !
+    mov rax, [rsp + 8] ; Get the orignal CS
+    and rax, 0FFFCh ; Clear the DPL bits
+    mov [rsp + 8], rax ; Write back the CS
+    mov rax, [rsp + 32] ; Get the orignal SS
+    and rax, 0FFFCh ; Clear the DPL bits
+    mov [rsp + 32], rax ; Write back the SS
+
+    swapgs; swap back to user gs
+    iretq
+myINTHandler_79h ENDP
 
 END
