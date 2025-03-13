@@ -133,16 +133,8 @@ myINTHandler_79h PROC
     and rax, 0FFFCh ; Clear the DPL bits
     mov [rsp + 8], rax ; Write back the CS
     mov [rsp + 32], ss ; Just use the kernel SS
-    ;mov [rsp + 16], rflags ; Just use the kernel RFLAGS, but this opcode doesnt exist...
-    add rsp, 24 ; trick pushfq...
-    pushfq ; Overwrite the RFLAGS with kernel's
-    sub rsp, 16 ; restore stack
-    
-    int 3 ; Debug Break
-    ; Gap 16 bytes for you to play
-    dq 9090909090909090h ; NOP
 
-    ;swapgs; swap back to user gs, but...windbg need a "right" gs to work...
+    swapgs; swap back to user gs
     iretq
 myINTHandler_79h ENDP
 
