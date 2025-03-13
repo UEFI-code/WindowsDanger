@@ -19,21 +19,21 @@ This project is still under development. For more quick access, please use the [
 Currently achieved:
 - Disable Write-Protection by modifiy CR0
 - Hack Ring3 Segment in GDT to Ring0
-- Insert new user-callable IDT entries 78H and 79H, 78H will return back normally, while 79H will hack CS & SS to Ring0
+- Insert new user-callable IDT entries 78H and 79H, 78H will return back normally, while 79H will hack user thread's CS & SS to Ring0
 - Disable SMAP/SMEP by modify CR4
 - Adapt Multi-Processor System
 
 Known Issues:
-- Unknown.
+- After EXE entered Ring0, the kernel-thread-switch may not working properly, and will result in BSOD. To avoid this, we need back to Ring3 quickly after we played !! See [InterruptTester](UserMode_InterruptTester) for more details.
 
 Ideas:
 - Use soft ```int``` instruct from Ring3, and hack stack for return CS RPL -> 0, then ```iretq```.
 
 ## Features  
   
-- Elevate any threads to Ring0 for full control over low-level system resources  
+- Elevate any threads to Ring0 for full control over low-level system resources by simply `int 079h`  
 - Facilitate hardware debugging and reverse engineering tasks  
-- Support for Windows operating systems  
+- Tested on Windows Server 2022 x64, on Hyper-V
   
 ## Installation  
 
@@ -63,7 +63,9 @@ sc start WindowsDanger
 
 - [InterruptTester](UserMode_InterruptTester): Test our new IDT entries 78H and 79H
     - 78H : Return back normally
-    - 79H : Hack CS & SS to Ring0 and return back (Will Results in CRASH after few microseconds?)
+    - 79H : Hack current thread's CS & SS to Ring0 !!
+
+**Please note, before you use `int 079h`, you must Hack the GDT, Disable SMAP/SMEP, and Insert new IDT entries by (1, 4, 3).**
   
 ## Uninstallation  
   
