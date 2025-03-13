@@ -29,18 +29,9 @@ Known Issues:
 Ideas:
 - Use soft ```int``` instruct from Ring3, and hack stack for return CS RPL -> 0, then ```iretq```.
 
-## Learning Resources
-
-0. [Lab Experiment HandBooks](LabHandBooks): Contains Microsoft Learn Student Ambassador Workshop
-1. Download the WinDbg Preview tool from the Microsoft Store or [Non Store](DownloadWinDbgPreviewNonStore)
-2. Install [WDK](https://learn.microsoft.com/zh-cn/windows-hardware/drivers/download-the-wdk?wt.mc_id=studentamb_188195)
-3. Read [Kernel Debugging Document](https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-up-a-network-debugging-connection?wt.mc_id=studentamb_188195) on the Microsoft Learn
-4. Read [My Experiment log](Experiment_Record_GPT4.md) for more details
-5. Cource: [Arch2001_x86-64_OS_Internals](https://apps.p.ost2.fyi/learning/course/course-v1:OpenSecurityTraining2+Arch2001_x86-64_OS_Internals+2021_v1/home)
-
 ## Features  
   
-- Elevate all threads to Ring0 for full control over low-level system resources  
+- Elevate any threads to Ring0 for full control over low-level system resources  
 - Facilitate hardware debugging and reverse engineering tasks  
 - Support for Windows operating systems  
   
@@ -61,6 +52,18 @@ sc create WindowsDanger type= kernel binPath= C:\Windows\System32\drivers\Window
 sc start WindowsDanger
 ```
 
+## Play
+
+- [IoCTL_Caller](UserMode_Caller): Send Requests to our Kernel Driver. Supported Commands:
+    - 0 : Disable Write-Protection by modifiy CR0
+    - 1 : Hack Ring3 Segment in GDT to Ring0
+    - 2 : Mapping CR3 to a Virtual Address
+    - 3 : Insert new user-callable IDT entries 78H and 79H
+    - 4 : Disable SMAP/SMEP by modify CR4
+
+- [InterruptTester](UserMode_InterruptTester): Test our new IDT entries 78H and 79H
+    - 78H : Return back normally
+    - 79H : Hack CS & SS to Ring0 and return back (Will Results in CRASH after few microseconds?)
   
 ## Uninstallation  
   
@@ -75,6 +78,15 @@ sc delete WindowsDanger
 ```
 
 3. Delete the driver file.  
+
+## Learning Resources
+
+0. [Lab Experiment HandBooks](LabHandBooks): Contains Microsoft Learn Student Ambassador Workshop
+1. Download the WinDbg Preview tool from the Microsoft Store or [Non Store](DownloadWinDbgPreviewNonStore)
+2. Install [WDK](https://learn.microsoft.com/zh-cn/windows-hardware/drivers/download-the-wdk?wt.mc_id=studentamb_188195)
+3. Read [Kernel Debugging Document](https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-up-a-network-debugging-connection?wt.mc_id=studentamb_188195) on the Microsoft Learn
+4. Read [My Experiment log](Experiment_Record_GPT4.md) for more details
+5. Cource: [Arch2001_x86-64_OS_Internals](https://apps.p.ost2.fyi/learning/course/course-v1:OpenSecurityTraining2+Arch2001_x86-64_OS_Internals+2021_v1/home)
   
 ## License  
   
