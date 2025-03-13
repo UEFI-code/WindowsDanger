@@ -1,3 +1,0 @@
-﻿  int.c
-C:\Users\uefi\WindowsDanger\UserMode_InterruptTester\int.c(33,17): warning C4477: 'scanf_s' : format string '%x' requires an argument of type 'unsigned int *', but variadic argument 1 has type 'UINT8 *'
-  UserMode_InterruptTester.vcxproj -> C:\Users\uefi\WindowsDanger\UserMode_InterruptTester\x64\Debug\UserMode_InterruptTester.exe

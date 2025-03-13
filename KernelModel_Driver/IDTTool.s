@@ -128,18 +128,18 @@ myINTHandler_79h PROC
     add rsp, 0ffh
     pop rbp
 
+    ; let's Hack CS and SS !
+    mov [rsp + 8], cs ; Just use the kernel CS !
+    ;mov [rsp + 16], rax ; Just use the kernel RFLAGS, but this opcode doesnt exist...
+    add rsp, 24 ; trick pushfq...
+    pushfq ; Overwrite the RFLAGS
+    sub rsp, 16 ; restore stack
+    mov [rsp + 32], ss ; Just use the kernel SS !
+    int 3 ; Debug Break
     ; Gap 16 bytes for you to play
     dq 9090909090909090h ; NOP
 
-    ; let's Hack CS and SS !
-    mov rax, [rsp + 8] ; Get the orignal CS
-    and rax, 0FFFCh ; Clear the DPL bits
-    mov [rsp + 8], rax ; Write back the CS
-    mov rax, [rsp + 32] ; Get the orignal SS
-    and rax, 0FFFCh ; Clear the DPL bits
-    mov [rsp + 32], rax ; Write back the SS
-
-    swapgs; swap back to user gs
+    ;swapgs; swap back to user gs, but...windbg need a "right" gs to work...
     iretq
 myINTHandler_79h ENDP
 

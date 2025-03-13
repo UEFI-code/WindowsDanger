@@ -8,3 +8,6 @@
 *.user
 *.tlog
 *.lastbuildstate
+*.recipe
+*.ilk
+*.idb
