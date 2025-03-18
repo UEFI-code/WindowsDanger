@@ -41,7 +41,7 @@ NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 			case 3:
 				DbgPrint("Here is 3!\n");
 				// DbgBreakPoint();
-				RegisterMyINTHandler();
+				KeIpiGenericCall(RegisterMyINTHandler, NULL);
 				DbgPrint("We registered INT 0x78 and 0x79!\n");
 				break;
 			case 4:
