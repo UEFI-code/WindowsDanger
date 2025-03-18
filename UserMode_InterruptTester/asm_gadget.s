@@ -9,10 +9,11 @@ trigger_int_78h ENDP
 trigger_int_79h PROC
     ; Trigger an interrupt
     int 079h
-    ; Now We are Ring0!
-    ; swapgs; WinDbg need a "right" gs to work...
-    ; int 3; Inform windbg
-    dq 9090909090909090h
+    ; Now We are Ring0
+    swapgs; swap gs to kernel
+    hlt
+    hlt
+    dq 9090909090909090h ; NOP
     ; Well, we already played enough, so let's do something pretty...
     ; You are right, we need back to Ring3...
     mov rax, rsp ; Remember the current stack pointer
@@ -22,6 +23,7 @@ trigger_int_79h PROC
     push 033h ; CS
     mov rax, return_addr
     push rax ; Return address
+    swapgs; swap gs back to user
     iretq
     return_addr:
     ; OK, we backed to Ring3
