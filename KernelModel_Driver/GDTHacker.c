@@ -39,14 +39,15 @@ VOID HackGDT()
                         DbgPrint("This Code Segment is For Ring0, bypass patch!\n");
                     }
                 }
-                else
-                {
-                    DbgPrint("This Segment is Data, bypass patch!\n");
-                }
+                else DbgPrint("This Segment is Data, bypass patch!\n");
             }
             else
             {
-                DbgPrint("This Segment is system segment, bypass patch!\n");
+                DbgPrint("This Segment is system segment!\n");
+                if (Now_GDT[5] & 0xB == 0xB)
+                {
+                    DbgPrint("Oh, this is TSS Segment!\n");
+                }
             }
         }
         else
