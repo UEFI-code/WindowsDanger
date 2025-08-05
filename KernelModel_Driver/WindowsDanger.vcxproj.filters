@@ -27,9 +27,6 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProcessAndThread.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GDTHacker.c">
       <Filter>Source Files</Filter>
     </ClCompile>

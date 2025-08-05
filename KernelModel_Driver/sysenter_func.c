@@ -1,7 +1,7 @@
 #include "ntddk.h"
 #include "mydef.h"
 
-NTSTATUS sysenter_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
+NTSTATUS ioctl_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 {
 	if (DeviceObj != 0 && myIRP != 0)
 	{
