@@ -95,7 +95,7 @@ sc delete WindowsDanger
 ## Learning Resources
 
 0. [Lab Experiment HandBooks](LabHandBooks): Contains Microsoft Learn Student Ambassador Workshop
-1. Download the WinDbg Preview tool from the Microsoft Store or [Non Store](DownloadWinDbgPreviewNonStore)
+1. Download WinDbg
 2. Install [WDK](https://learn.microsoft.com/zh-cn/windows-hardware/drivers/download-the-wdk?wt.mc_id=studentamb_188195)
 3. Read [Kernel Debugging Document](https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-up-a-network-debugging-connection?wt.mc_id=studentamb_188195) on the Microsoft Learn
 4. Read [My Experiment log](Experiment_Record_GPT4.md) for more details
