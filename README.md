@@ -25,7 +25,19 @@ Currently achieved:
 - Adapt Multi-Processor System
 
 Known Issues:
-- After EXE entered Ring0, the kernel-thread-switch may not working properly, and will result in BSOD. To avoid this, we need back to Ring3 quickly after we played !! See [InterruptTester](UserMode_InterruptTester) for more details.
+- After EXE entered Ring0, the nt!SwapContext may not working properly, and result in #DF.
+```
+04 fffff801`103eed10 fffff801`11036efb     nt!KiBugCheckDispatch+0x69
+05 fffff801`103eee50 fffff801`110316d2     nt!KiDoubleFaultAbort+0x2fb
+06 000001c1`78380cd0 fffff801`11031484     nt!SwapContext+0x1b2
+07 000001c1`78380d10 fffff801`11030b35     nt!KxDispatchInterrupt+0x144
+08 000001c1`78380e50 fffff801`1102ba11     nt!KiDpcInterruptBypass+0x25
+09 000001c1`78380e60 00007ff6`cabf1b2c     nt!KiInterruptDispatchNoLockNoEtw+0xb1
+0a 000001c1`78380ff8 0000002d`df37fc08     0x00007ff6`cabf1b2c
+0b 000001c1`78381000 00000000`00000000     0x0000002d`df37fc08
+```
+- This problem might caused by NT lazy-mem-allocation
+- U may use less-paged-rsp & `cli` to reduce #DF
 
 Ideas:
 - Use soft ```int``` instruct from Ring3, and hack stack for return CS RPL -> 0, then ```iretq```.
