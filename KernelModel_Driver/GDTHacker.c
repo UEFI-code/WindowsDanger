@@ -1,5 +1,4 @@
-#include "ntddk.h"
-
+#include "mydef.h"
 
 VOID HackGDT()
 {

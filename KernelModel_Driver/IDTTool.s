@@ -129,12 +129,10 @@ myINTHandler_79h PROC
     pop rbp
 
     ; let's Hack CS and SS !
-    mov rax, [rsp + 8] ; Get the orignal CS
-    and rax, 0FFFCh ; Clear the DPL bits
-    mov [rsp + 8], rax ; Write back the CS
+    mov rax, 030h
+    mov [rsp + 8], rax ; Set CS=0x30
     mov [rsp + 32], ss ; Just use the kernel SS
 
-    swapgs; swap back to user gs
     iretq
 myINTHandler_79h ENDP
 
