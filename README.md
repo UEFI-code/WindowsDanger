@@ -19,6 +19,7 @@ This project is still under development. For more quick access, please use the [
 Currently achieved:
 - Disable Write-Protection by modifiy CR0
 - Hack Ring3 Segment in GDT to Ring0
+- Hack TSS IOPM (0~FF)
 - Insert new user-callable IDT entries 78H and 79H, 78H will return back normally, while 79H will hack user thread's CS & SS to Ring0
 - Disable SMAP/SMEP by modify CR4
 - Adapt Multi-Processor System
@@ -31,8 +32,9 @@ Ideas:
 
 ## Features
 
+- Ring3 can touch IO (0~FF) Directly
 - Elevate any threads to Ring0 for full control over low-level system resources by simply `int 079h`  
-- Facilitate hardware debugging and reverse engineering tasks  
+- Facilitate hardware debugging and kernel-hack study
 - Tested on Windows Server 2022 x64, on Hyper-V
 
 ### Hint
@@ -67,7 +69,7 @@ sc start WindowsDanger
 
 - [IoCTL_Caller](UserMode_Caller): Send Requests to our Kernel Driver. Supported Commands:
     - 0 : Disable Write-Protection by modifiy CR0
-    - 1 : Hack Ring3 Segment in GDT to Ring0
+    - 1 : Hack Ring3 Segment in GDT to Ring0 & Hack TSS_IOPM
     - 2 : Mapping CR3 to a Virtual Address
     - 3 : Insert new user-callable IDT entries 78H and 79H
     - 4 : Disable SMAP/SMEP by modify CR4
@@ -77,6 +79,9 @@ sc start WindowsDanger
     - 79H : Hack current thread's CS & SS to Ring0 !!
 
 **Please note, before you use `int 079h`, you must Hack the GDT, Disable SMAP/SMEP, and Insert new IDT entries by (1, 4, 3).**
+
+- Any Ring3 Debugger:
+    - Simply try some thing like `in al, 66h` !!
 
 ## Uninstallation
 

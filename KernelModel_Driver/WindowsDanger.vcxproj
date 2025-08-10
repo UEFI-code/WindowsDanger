@@ -164,6 +164,7 @@
     <ClCompile Include="IDTHacker.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="sysenter_func.c" />
+    <ClCompile Include="TSSHacker.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mydef.h" />

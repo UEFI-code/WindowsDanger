@@ -5,6 +5,7 @@ void SetGDT(UINT8 *Buf);
 void DisableInterrupts();
 void EnableInterrupts();
 UINT8 *BypassWP(UINT8 *Addr, UINT64 Size);
+VOID HackTSS(UINT8 *TSS_Seg_RW);
 
 VOID HackGDT()
 {
@@ -67,6 +68,7 @@ VOID HackGDT()
             Now_GDT += 8;
         }
     }
-    DbgPrint("GDT Hack Done!\n");
+    DbgPrint("GDT Hack Done! Now Hack TSS to Hack IOPM!\n");
+    HackTSS(GDT_Base + 64);
     EnableInterrupts();
 }
