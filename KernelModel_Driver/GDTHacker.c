@@ -1,11 +1,5 @@
 #include "ntddk.h"
 
-void GetGDT(UINT8 *Buf);
-void SetGDT(UINT8 *Buf);
-void DisableInterrupts();
-void EnableInterrupts();
-UINT8 *BypassWP(UINT8 *Addr, UINT64 Size);
-VOID HackTSS(UINT8 *TSS_Seg_RW);
 
 VOID HackGDT()
 {

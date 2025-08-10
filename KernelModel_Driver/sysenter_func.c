@@ -1,4 +1,3 @@
-#include "ntddk.h"
 #include "mydef.h"
 
 NTSTATUS ioctl_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
@@ -41,7 +40,7 @@ NTSTATUS ioctl_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 			case 3:
 				DbgPrint("Here is 3!\n");
 				// DbgBreakPoint();
-				KeIpiGenericCall(RegisterMyINTHandler, NULL);
+				KeIpiGenericCall(HackIDT, NULL);
 				DbgPrint("We registered INT 0x78 and 0x79!\n");
 				break;
 			case 4:

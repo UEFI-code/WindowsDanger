@@ -1,6 +1,4 @@
-#include "ntddk.h"
-
-UINT8 *BypassWP(UINT8 *Addr, UINT64 Size);
+#include "mydef.h"
 
 VOID HackTSS(UINT8 *TSS_Seg_RW)
 {

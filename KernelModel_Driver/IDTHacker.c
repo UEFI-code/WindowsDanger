@@ -1,4 +1,3 @@
-#include<ntddk.h>
 #include "mydef.h"
 
 void HackIDT_FireAndForget2(UINT64 int_id, void *func);
@@ -6,7 +5,7 @@ void HackIDT_FireAndForget2(UINT64 int_id, void *func);
 void myINTHandler_78h();
 void myINTHandler_79h();
 
-void RegisterMyINTHandler()
+void HackIDT()
 {
     // trigger breakpoint
     // DbgBreakPoint();
