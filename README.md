@@ -20,7 +20,7 @@ Currently achieved:
 - Disable Write-Protection by modifiy CR0
 - Hack Ring3 Segment in GDT to Ring0
 - Hack TSS IOPM (0~FF)
-- Insert new user-callable IDT entries 78H and 79H, 78H will return back normally, while 79H will hack user thread's CS & SS to Ring0
+- Insert new user-callable IDT entries 78H and 79H, 78H will hack IOPL -> 3, while 79H will hack thread's CS & SS to Ring0
 - Disable SMAP/SMEP by modify CR4
 - Adapt Multi-Processor System
 
@@ -29,11 +29,12 @@ Known Issues:
 
 Ideas:
 - Use soft ```int``` instruct from Ring3, and hack stack for return CS RPL -> 0, then ```iretq```.
+- Hack IOPL is the same
 
 ## Features
 
-- Ring3 can touch IO (0~FF) Directly
-- Elevate any threads to Ring0 for full control over low-level system resources by simply `int 079h`  
+- Ring3 thread can touch IO (0~FF) directly after `int 078h`
+- Elevate any threads to Ring0 for full control over low-level system resources by simply `int 079h`
 - Facilitate hardware debugging and kernel-hack study
 - Tested on Windows Server 2022 x64, on Hyper-V
 
@@ -53,11 +54,11 @@ fffff802`662c112e 0f22c0          mov     cr0,rax
 **MUST Attach Kernel Debugger to prevent BSOD**, because ```int 3``` will trigger BSOD without Kernel Debugger.
 
 1. Download the latest version of the WindowsDanger driver.  
-2. Copy the driver file to an appropriate directory (e.g., `C:\Windows\System32\drivers`).  
+2. Copy the driver file to an appropriate directory (e.g., `C:\kd`).  
 3. Run the following command with administrator privileges to install the driver:
 
 ```C
-sc create WindowsDanger type= kernel binPath= C:\Windows\System32\drivers\WindowsDanger.sys
+sc create WindowsDanger type= kernel binPath= C:\kd\WindowsDanger.sys
 ```
 
 4. Start the driver:  
@@ -75,13 +76,10 @@ sc start WindowsDanger
     - 4 : Disable SMAP/SMEP by modify CR4
 
 - [InterruptTester](UserMode_InterruptTester): Test our new IDT entries 78H and 79H
-    - 78H : Return back normally
+    - 78H : Hack IOPL -> 3
     - 79H : Hack current thread's CS & SS to Ring0 !!
 
-**Please note, before you use `int 079h`, you must Hack the GDT, Disable SMAP/SMEP, and Insert new IDT entries by (1, 4, 3).**
-
-- Any Ring3 Debugger:
-    - Simply try some thing like `in al, 66h` !!
+**Please note, before you use `int 078h/079h`, you must Hack the GDT, Disable SMAP/SMEP, and Insert new IDT entries by (1, 4, 3).**
 
 ## Uninstallation
 

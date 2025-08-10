@@ -3,6 +3,9 @@
 trigger_int_78h PROC
     ; Trigger an interrupt
     int 078h
+    ; try in/out
+    in al, 66h
+    out 67, al;
     ret
 trigger_int_78h ENDP
 
@@ -10,8 +13,6 @@ trigger_int_79h PROC
     ; Trigger an interrupt
     int 079h
     ; Now We are Ring0, with kernel gs!
-    hlt
-    hlt
     dq 9090909090909090h ; NOP
     ; Well, we already played enough, so let's do something pretty...
     ; You are right, we need back to Ring3...

@@ -5,7 +5,7 @@ extern DbgPrint: proc
 .data
 
     str_78h:
-        db "Code in INT 78h Handler, will ret back normally\n", 0
+        db "Code in INT 78h Handler, will hack IOPL -> 3\n", 0
     str_79h:
         db "Code in INT 79h Handler, will hack CS and SS to Ring0\n", 0
 
@@ -93,6 +93,11 @@ myINTHandler_78h PROC
     ; restore the stack
     add rsp, 0ffh
     pop rbp
+
+    ; Hack IOPL!
+    mov rax, [rsp+16];
+    or rax, 03000h;
+    mov [rsp+16], rax;
 
     ; Gap 16 bytes for you to play
     dq 9090909090909090h ; NOP
