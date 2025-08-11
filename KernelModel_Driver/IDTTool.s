@@ -3,11 +3,10 @@ extern MmMapIoSpace: proc
 extern DbgPrint: proc
 
 .data
-
     str_78h:
-        db "Code in INT 78h Handler, will hack IOPL -> 3\n", 0
+        db "Code in INT 78h Handler, will hack IOPL -> 3", 10, 0
     str_79h:
-        db "Code in INT 79h Handler, will hack CS and SS to Ring0\n", 0
+        db "Code in INT 79h Handler, will ret with kernel-context", 10, 0
 
 .code
 
@@ -133,12 +132,9 @@ myINTHandler_79h PROC
     add rsp, 0ffh
     pop rbp
 
-    ; let's Hack CS and SS !
-    mov rax, 030h
-    mov [rsp + 8], rax ; Set CS=0x30
-    mov [rsp + 32], ss ; Just use the kernel SS
-
-    iretq
+    ; ret directly, with kernel context!
+    sti
+    ret
 myINTHandler_79h ENDP
 
 END
