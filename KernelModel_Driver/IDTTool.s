@@ -1,6 +1,7 @@
 extern MmGetPhysicalAddress: proc
 extern MmMapIoSpace: proc
 extern DbgPrint: proc
+extern original_GP_addr: qword
 
 .data
     str_78h:
@@ -14,6 +15,27 @@ GetIDT PROC
     sidt fword ptr [rax]
     ret
 GetIDT ENDP
+
+GetIDT_Item_Addr PROC
+    sub rsp, 10; Prepare stack for sidt
+    sidt fword ptr [rsp]
+    mov rbx, [rsp + 2] ; IDT base address
+    add rsp, 10; Restore stack
+    lea rcx, [rcx * 4]
+    lea rcx, [rcx * 4] ; Here multiple 16 is not allowed by x64
+    lea rcx, [rbx + rcx] ; Get target entry. RBX is useless now
+    xor rax, rax; Clean Ret Value
+    mov ax, [rcx]; // read low 16 bits from IDT item
+    xor rbx, rbx ; Clear RBX
+    mov ebx, [rcx + 6]; // read middle 32 bits from IDT item
+    shl rbx, 16; // shift RBX left 16 bits
+    or rax, rbx; // merge to RAX
+    xor rbx, rbx ; Clear RBX
+    mov bx, [rcx + 10]; // read high 16 bits from IDT item
+    shl rbx, 48; // shift RBX left 48 bits
+    or rax, rbx; // merge to RAX
+    ret
+GetIDT_Item_Addr ENDP
 
 SetIDT PROC  
     lidt fword ptr [rax]
@@ -53,7 +75,7 @@ HackIDT_FireAndForget2 PROC
     pop rcx
     lea rcx, [rcx * 4]
     lea rcx, [rcx * 4] ; Here multiple 16 is not allowed by x64.
-    lea rcx, [rax + rcx] ; Get the INT indexed pointer. The rcx is useless now.
+    lea rcx, [rax + rcx] ; Get the INT indexed pointer
     mov [rcx], dx ; Store lower 16 bits of the pointer to the function
     ; now shift rax to right 16 bits
     shr rdx, 16
@@ -65,6 +87,17 @@ HackIDT_FireAndForget2 PROC
     ; OK, we finished the hack!
     ret
 HackIDT_FireAndForget2 ENDP
+
+myINTHandler_13h PROC
+    ; Stack Layout:
+    ; RSP + 0 : error code
+    ; RSP + 8 : return address
+    ; RSP + 16 : original CS
+    ; RSP + 24 : original RFLAGS
+    ; RSP + 32 : original RSP
+    ; RSP + 40 : original SS
+    jmp [original_GP_addr]
+myINTHandler_13h ENDP
 
 myINTHandler_78h PROC
     ; Stack Layout:
