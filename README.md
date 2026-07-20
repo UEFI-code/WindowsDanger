@@ -28,8 +28,15 @@ Known Issues:
 - I'm lazy to bakup registers in interrupts-handler, so backup urself
 - I'm lazy to hack EXE thread to CS=0x30, and I hate bullshit code to do that
 - So I just hack it with CS=0x10 instead😎
-- I'm also lazy to add bullshit hook to `#GP`/`#PF` handler to id `CS=0x30`
+- ~~I'm also lazy to add bullshit hook to `#GP`/`#PF` handler to id `CS=0x30`~~
 - So u'll face BSOD if ur EXE crashed
+
+Import things:
+- NT kernel does not recognize `CS=0x30`, it likely treats it as kernel thread
+- That is the PROBLEM
+- When Timer/#PF occurs, the `Ring0 User Thread` has user GS, and will NOT be `swapgs` due to the STUPID NT Kernel (which only chk last 2 bits)
+- It cannot use kernel context, so the kernel will PANIC
+- To fix that, we need hook the Timer & #PF handler, modifi it back to `CS=0x33` and jmp original...
 
 Ideas:
 - Use soft `int` instruct from Ring3, and `ret` directly with kernel-context
