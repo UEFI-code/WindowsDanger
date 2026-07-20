@@ -39,6 +39,7 @@ Ideas:
 
 - Ring3 thread can touch IO (0~FF) directly after `int 078h`
 - Elevate any threads to Ring0 for full control over low-level system resources by simply `int 079h`
+- Add Hook #GP demo, u can customize it in `myGPHandler_cfunc`, `KernelModel_Driver\IDTHacker.c`
 - Facilitate hardware debugging and kernel-hack study
 - Tested on Windows Server 2022 x64, on Hyper-V
 
@@ -76,7 +77,7 @@ sc start WindowsDanger
     - 0 : Disable Write-Protection by modifiy CR0
     - 1 : Hack Ring3 Segment in GDT to Ring0 & Hack TSS_IOPM
     - 2 : Mapping CR3 to a Virtual Address
-    - 3 : Insert new user-callable IDT entries 78H and 79H
+    - 3 : Hook #GP and Insert new user-callable IDT entries 78H and 79H
     - 4 : Disable SMAP/SMEP by modify CR4
 
 - [InterruptTester](UserMode_InterruptTester): Test our new IDT entries 78H and 79H
