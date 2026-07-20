@@ -134,6 +134,7 @@ myINTHandler_0dh PROC
     pop rcx
     pop rbx
     pop rax
+    add rsp, 8 ; skip error code
     swapgs ; swap back to user gs
     iretq
 
