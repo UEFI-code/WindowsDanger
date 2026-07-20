@@ -2,6 +2,7 @@ extern MmGetPhysicalAddress: proc
 extern MmMapIoSpace: proc
 extern DbgPrint: proc
 extern original_GP_addr: qword
+extern myGPHandler_cfunc: proc
 
 .data
     str_78h:
@@ -88,7 +89,7 @@ HackIDT_FireAndForget2 PROC
     ret
 HackIDT_FireAndForget2 ENDP
 
-myINTHandler_13h PROC
+myINTHandler_0dh PROC
     ; Stack Layout:
     ; RSP + 0 : error code
     ; RSP + 8 : return address
@@ -96,8 +97,58 @@ myINTHandler_13h PROC
     ; RSP + 24 : original RFLAGS
     ; RSP + 32 : original RSP
     ; RSP + 40 : original SS
-    jmp [original_GP_addr]
-myINTHandler_13h ENDP
+    ; jmp [original_GP_addr]
+    ; Let's backup registers first...
+    push rax
+    push rbx
+    push rcx
+    push rdx
+    push rsi
+    push rdi
+    push r8
+    push r9
+    push r10
+    push r11
+    ; Ok, chk if we are from kernel. if so, jmp original
+    mov rax, [rsp + 8*12]
+    cmp rax, 10h
+    je to_ker
+
+    ; oh...we are from user
+    swapgs ; swap to kernel gs
+    mov rcx, rsp ; argv0
+    push rbp
+    mov rbp, rsp
+    sub rsp, 0ffh ; Prepare stack for myGPHandler_cfunc
+    call myGPHandler_cfunc
+    add rsp, 0ffh ; Restore stack
+    pop rbp
+    swapgs ; swap back to user gs
+    pop r11
+    pop r10
+    pop r9
+    pop r8
+    pop rdi
+    pop rsi
+    pop rdx
+    pop rcx
+    pop rbx
+    pop rax
+    iretq
+
+    to_ker:
+    pop r11
+    pop r10
+    pop r9
+    pop r8
+    pop rdi
+    pop rsi
+    pop rdx
+    pop rcx
+    pop rbx
+    pop rax
+    jmp [original_GP_addr] ; BSOD as it
+myINTHandler_0dh ENDP
 
 myINTHandler_78h PROC
     ; Stack Layout:
