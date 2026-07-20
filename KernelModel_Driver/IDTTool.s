@@ -101,7 +101,7 @@ myINTHandler_0dh PROC
     ; Let's backup registers first...
     push rax
     ; Ok, chk if we are from kernel. if so, jmp original
-    mov rax, [rsp + 8*12]
+    mov rax, [rsp + 8*3]
     cmp rax, 10h
     je to_ker
     ; oh...we are from user
