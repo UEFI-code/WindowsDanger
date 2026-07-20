@@ -19,8 +19,36 @@ void HackIDT()
     HackIDT_FireAndForget2(0x79, myINTHandler_79h);
 }
 
-void myGPHandler_cfunc(UINT8 *arg)
+typedef struct {
+    UINT64 R11;
+    UINT64 R10;
+    UINT64 R9;
+    UINT64 R8;
+    UINT64 RDI;
+    UINT64 RSI;
+    UINT64 RDX;
+    UINT64 RCX;
+    UINT64 RBX;
+    UINT64 RAX;
+    // x64 #GP
+    UINT64 ERR_CODE;
+    UINT8* RIP;
+    UINT64 CS;
+    UINT64 RFLAGS;
+    UINT8* RSP;
+    UINT64 SS;
+} MY_GP_FRAME;
+
+void myGPHandler_cfunc(MY_GP_FRAME *frame)
 {
     DbgBreakPoint();
-    DbgPrint("We are in myGPHandler_cfunc, arg = %p\n", arg);
+    DbgPrint("We are in myGPHandler_cfunc, arg = %p\n", frame);
+    DbgPrint("Usr RIP = %p\n", frame->RIP);
+    // SMAP must be disabled, or we will crash
+    if (frame->RIP[0] == 0x0f)
+    {
+        DbgPrint("Detected 0x0f prefix\n");
+        frame->RIP += 3;
+        DbgPrint("Attempt to skip that instruction\n");
+    }
 }
