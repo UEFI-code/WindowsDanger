@@ -41,7 +41,7 @@ NTSTATUS ioctl_handler(PDEVICE_OBJECT DeviceObj, PIRP myIRP)
 				DbgPrint("Here is 3!\n");
 				// DbgBreakPoint();
 				KeIpiGenericCall(HackIDT, NULL);
-				DbgPrint("We registered INT 0x78 and 0x79!\n");
+				DbgPrint("We hacked #GP and registered INT 0x78 and 0x79!\n");
 				break;
 			case 4:
 				DbgPrint("Here is 4!\n");
