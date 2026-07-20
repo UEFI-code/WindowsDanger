@@ -100,6 +100,11 @@ myINTHandler_0dh PROC
     ; jmp [original_GP_addr]
     ; Let's backup registers first...
     push rax
+    ; Ok, chk if we are from kernel. if so, jmp original
+    mov rax, [rsp + 8*12]
+    cmp rax, 10h
+    je to_ker
+    ; oh...we are from user
     push rbx
     push rcx
     push rdx
@@ -109,15 +114,9 @@ myINTHandler_0dh PROC
     push r9
     push r10
     push r11
-    ; Ok, chk if we are from kernel. if so, jmp original
-    mov rax, [rsp + 8*12]
-    cmp rax, 10h
-    je to_ker
-
-    ; oh...we are from user
     swapgs ; swap to kernel gs
     mov rcx, rsp ; argv0
-    push rbp
+    push rbp ; the fucking call convention...
     mov rbp, rsp
     sub rsp, 0ffh ; Prepare stack for myGPHandler_cfunc
     call myGPHandler_cfunc
@@ -137,17 +136,7 @@ myINTHandler_0dh PROC
     add rsp, 8 ; skip error code
     swapgs ; swap back to user gs
     iretq
-
     to_ker:
-    pop r11
-    pop r10
-    pop r9
-    pop r8
-    pop rdi
-    pop rsi
-    pop rdx
-    pop rcx
-    pop rbx
     pop rax
     jmp [original_GP_addr] ; BSOD as it
 myINTHandler_0dh ENDP
