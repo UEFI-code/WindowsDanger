@@ -32,4 +32,9 @@ trigger_int_79h PROC
     ret
 trigger_int_79h ENDP
 
+trigger_gp PROC
+    mov rax, cr0
+    ret
+trigger_gp ENDP
+
 END

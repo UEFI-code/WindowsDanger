@@ -4,6 +4,7 @@
 
 void trigger_int_78h();
 void trigger_int_79h();
+void trigger_gp();
 
 int main()
 {
@@ -23,7 +24,8 @@ int main()
                 trigger_int_79h();
                 break;
             default:
-                printf("Not Implemented!\n");
+                printf("Not Implemented, but will trigger #GP instead\n");
+                trigger_gp();
                 break;
         }
     }
