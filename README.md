@@ -20,6 +20,7 @@ Currently achieved:
 - Disable Write-Protection by modifiy CR0
 - Hack Ring3 Segment in GDT to Ring0
 - Hack TSS IOPM (0~FF)
+- Hooked #GP handler
 - Insert new user-callable IDT entries 78H and 79H, 78H will hack IOPL -> 3, while 79H will hack thread's CS & SS to Ring0
 - Disable SMAP/SMEP by modify CR4
 - Adapt Multi-Processor System
