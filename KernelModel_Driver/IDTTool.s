@@ -123,7 +123,7 @@ myINTHandler_0dh PROC
     call myGPHandler_cfunc
     add rsp, 0ffh ; Restore stack
     pop rbp
-    swapgs ; swap back to user gs
+    ; Restore registers
     pop r11
     pop r10
     pop r9
@@ -134,6 +134,7 @@ myINTHandler_0dh PROC
     pop rcx
     pop rbx
     pop rax
+    swapgs ; swap back to user gs
     iretq
 
     to_ker:
